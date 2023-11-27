@@ -30,14 +30,14 @@ Based on a framework of Hill-Chao numbers of orders q = 0, 1 and 2,
 single and multiple ecosystems; see Chao et al. (2023) for pertinent
 methodology and decomposition theory.
 
-1.  <u>Multifunctionality measures in a single ecosystem:</u>
+<u>1. Multifunctionality measures in a single ecosystem:</u>
 
 `MF.beta4` computes a class of weighted multifunctionality measures for
 given function weights. Multifunctionality measures that correct for
 strong correlations between ecosystem functions to avoid redundancy are
 also provided.
 
-1.  <u>Multifunctionality measures in multiple ecosystems:</u>
+<u>2. Multifunctionality measures in multiple ecosystems:</u>
 
 For given function weights, `MF.beta4` computes the gamma
 multifunctionality of pooled ecosystems, the within-ecosystem component
@@ -175,7 +175,7 @@ and 7 show respectively the first two raw ecosystem functions
 
 ``` r
 data("forest_function_data_raw")
-head(cbind(forest_function_data_raw[1:3], round(forest_function_data_raw[6:7], 3)), 10)
+forest_function_data_raw
 ```
 
     #>       plotid target_species_richness composition earthworm_biomass fine_woody_debris
@@ -211,7 +211,7 @@ fine_woody_debris):
 data("forest_function_data_raw")
 normalized_forest_function_data <- function_normalization(data = forest_function_data_raw,
                     fun_cols = 6:31, negative = c("soil_cn_ff_10","wue"), by_group = "country")
-head(cbind(normalized_forest_function_data[1:3], round(normalized_forest_function_data[6:7], 3)), 10)
+forest_function_data_raw
 ```
 
     #>       plotid target_species_richness composition earthworm_biomass fine_woody_debris
@@ -247,10 +247,10 @@ data:
 
 ``` r
 data("forest_biodiversity_data")
-head(forest_biodiversity_data,10)
+forest_biodiversity_data
 ```
 
-    #> # A tibble: 10 x 3
+    #> # A tibble: 10 × 3
     #> # Groups:   plotID [5]
     #>    plotID species          abundance
     #>    <chr>  <chr>                <dbl>

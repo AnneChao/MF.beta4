@@ -45,14 +45,14 @@ pertinent methodology and decomposition theory.
 
 
 
-1. <u>Multifunctionality measures in a single ecosystem:</u>  
+<u>1. Multifunctionality measures in a single ecosystem:</u>  
 
 `MF.beta4` computes a class of weighted
 multifunctionality measures for given function weights. Multifunctionality measures that correct
 for strong correlations between ecosystem functions to avoid redundancy are also provided.
 
 
-2. <u>Multifunctionality measures in multiple ecosystems:</u>
+<u>2. Multifunctionality measures in multiple ecosystems:</u>
 
 For given function weights, `MF.beta4` computes the gamma multifunctionality of pooled ecosystems, the within-ecosystem component (alpha
 multifunctionality) and the among-ecosystem component (beta multifunctionality). The correlation between functions can also be corrected for.
@@ -135,7 +135,7 @@ Run the following code for the data `forest_function_data_raw` to view the first
 
 ```{r  fig.width=10, eval=FALSE}
 data("forest_function_data_raw")
-head(cbind(forest_function_data_raw[1:3], round(forest_function_data_raw[6:7], 3)), 10)
+forest_function_data_raw
 ```
 
 ```{r  fig.width=10, echo=FALSE}
@@ -149,7 +149,7 @@ To meaningfully quantify multifunctionality in a ecosystem based on multiple fun
 data("forest_function_data_raw")
 normalized_forest_function_data <- function_normalization(data = forest_function_data_raw,
                     fun_cols = 6:31, negative = c("soil_cn_ff_10","wue"), by_group = "country")
-head(cbind(normalized_forest_function_data[1:3], round(normalized_forest_function_data[6:7], 3)), 10)
+forest_function_data_raw
 ```
 
 ```{r fig.width=10, echo=FALSE}
@@ -170,7 +170,7 @@ Run the following code to view the first ten rows of the biodiversity data:
 
 ```{r eval=FALSE}
 data("forest_biodiversity_data")
-head(forest_biodiversity_data,10)
+forest_biodiversity_data
 ```
 
 ```{r echo=FALSE}
