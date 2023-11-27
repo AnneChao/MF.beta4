@@ -64,6 +64,12 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
   if((length(weight)!=1) && (length(weight)!=length(func_data)))
     stop("Error: Weight should be a vector with the same length as func_data")
   
+  if(!inherits(q, "numeric"))
+    stop("invalid class of order q, q should be a postive value/vector of numeric object", call. = FALSE)
+  if(min(q) < 0){
+    warning("ambigous of order q, we only compute postive q", call. = FALSE)
+    q <- q[q >= 0]
+  }
   
   if (FALSE %in% (0 <= func_data & func_data <= 1))
     stop("Error: Your data does not be normalized, please transform the data between 0 and 1 first.")
@@ -136,8 +142,8 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
     species_div <- lapply(id_data$plotID,function(p){
       data_s <- species_data %>% filter(plotID == p) %>% group_by(species) %>%
         summarise(abundance = sum(abundance))
-      div = AO3D(data_s$abundance,q=q,nboot = 0,method = "Observed")
-      return(data.frame("Species diversity"=rep(div$qTD,ifelse(ncol(func_data)>1,2,1))))
+      div = qTD(data_s$abundance,q=q,nboot = 0,method = "Observed")
+      return(data.frame("Species diversity"=rep(div,ifelse(ncol(func_data)>1,2,1))))
     }) %>% do.call(rbind,.)
     
     output <- cbind(output,species_div)
@@ -220,6 +226,13 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
   }else{
     if((length(weight)!=1) && (length(weight)!=(length(func_data)-1)))
       stop("Error: Weight should be a vector with the same length as func_data")
+  }
+  
+  if(!inherits(q, "numeric"))
+    stop("invalid class of order q, q should be a postive value/vector of numeric object", call. = FALSE)
+  if(min(q) < 0){
+    warning("ambigous of order q, we only compute postive q", call. = FALSE)
+    q <- q[q >= 0]
   }
   
   if (FALSE %in% (0 <= (func_data %>% dplyr::select(-by_group)) & (func_data %>% dplyr::select(-by_group)) <= 1))
@@ -309,10 +322,10 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
           data_alpha = as.matrix(data) %>% as.vector
           data_alpha = data_alpha[data_alpha > 0]
           
-          gamma = AO3D(data_gamma,q=q,nboot = 0,method = "Observed")
-          g = gamma$qTD
-          alpha = AO3D(data_alpha,q=q,nboot = 0,method = "Observed")
-          a = alpha$qTD/2
+          gamma = qTD(data_gamma,q=q,nboot = 0,method = "Observed")
+          g = gamma
+          alpha = qTD(data_alpha,q=q,nboot = 0,method = "Observed")
+          a = alpha/2
           b = g/a
           return(list(gamma=g,alpha=a,beta=b))
         }
@@ -411,10 +424,10 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
             data_alpha = as.matrix(data) %>% as.vector
             data_alpha = data_alpha[data_alpha > 0]
             
-            gamma = AO3D(data_gamma,q=q,nboot = 0,method = "Observed")
-            g = gamma$qTD
-            alpha = AO3D(data_alpha,q=q,nboot = 0,method = "Observed")
-            a = alpha$qTD/2
+            gamma = qTD(data_gamma,q=q,nboot = 0,method = "Observed")
+            g = gamma
+            alpha = qTD(data_alpha,q=q,nboot = 0,method = "Observed")
+            a = alpha/2
             b = g/a
             return(list(gamma=g,alpha=a,beta=b))
           }
@@ -689,375 +702,15 @@ qMF_diversity <- function(w, v,q,tau=0.5,di=NULL,diversity="gamma"){
 }
 
 
-
-# Asymptotic diversity and observed diversity of order q
-# 
-# \code{AO3D}: The estimated asymptotic and observed diversity of order q 
-# 
-# @param data (a) For \code{datatype = "abundance"}, data can be input as a vector of species abundances (for a single assemblage), matrix/data.frame (species by assemblages), or a list of species abundance vectors. \cr
-# (b) For \code{datatype = "incidence_freq"}, data can be input as a vector of incidence frequencies (for a single assemblage), matrix/data.frame (species by assemblages), or a list of incidence frequencies; the first entry in all types of input must be the number of sampling units in each assemblage. \cr
-# (c) For \code{datatype = "incidence_raw"}, data can be input as a list of matrix/data.frame (species by sampling units); data can also be input as a matrix/data.frame by merging all sampling units across assemblages based on species identity; in this case, the number of sampling units (nT, see below) must be input. 
-# @param diversity selection of diversity type: \code{'TD'} = Taxonomic diversity, \code{'PD'} = Phylogenetic diversity, and \code{'FD'} = Functional diversity.
-# @param q a numerical vector specifying the diversity orders. Default is seq(0, 2, by = 0.2).
-# @param datatype data type of input data: individual-based abundance data (\code{datatype = "abundance"}), sampling-unit-based incidence frequencies data (\code{datatype = "incidence_freq"}), or species by sampling-units incidence matrix (\code{datatype = "incidence_raw"}) with all entries being 0 (non-detection) or 1 (detection)
-# @param nboot a positive integer specifying the number of bootstrap replications when assessing sampling uncertainty and constructing confidence intervals. Enter 0 to skip the bootstrap procedures. Default is 50.
-# @param conf a positive number < 1 specifying the level of confidence interval. Default is 0.95.
-# @param nT (required only when \code{datatype = "incidence_raw"} and input data is matrix/data.frame) a vector of nonnegative integers specifying the number of sampling units in each assemblage. If assemblage names are not specified, then assemblages are automatically named as "assemblage1", "assemblage2",..., etc. 
-# @param method computing type. Select 'Asymptotic' or 'Observed'.
-# @param PDtree (required argument only for \code{diversity = "PD"}), a phylogenetic tree in Newick format for all observed species in the pooled assemblage. 
-# @param PDreftime (argument only for \code{diversity = "PD"}), a vector of numerical values specifying reference times for PD. Default is \code{NULL} (i.e., the age of the root of PDtree).  
-# @param PDtype (argument only for \code{diversity = "PD"}), select PD type: \code{PDtype = "PD"} (effective total branch length) or \code{PDtype = "meanPD"} (effective number of equally divergent lineages). Default is \code{"meanPD"}, where \code{meanPD = PD/tree depth}.
-# @param FDdistM (required argument only for \code{diversity = "FD"}), a species pairwise distance matrix for all species in the pooled assemblage. 
-# @param FDtype (argument only for \code{diversity = "FD"}), select FD type: \code{FDtype = "tau_values"} for FD under specified threshold values, or \code{FDtype = "AUC"} (area under the curve of tau-profile) for an overall FD which integrates all threshold values between zero and one. Default is \code{"AUC"}.  
-# @param FDtau (argument only for \code{diversity = "FD"} and \code{FDtype = "tau_values"}), a numerical vector between 0 and 1 specifying tau values (threshold levels). If \code{NULL} (default), then threshold is set to be the mean distance between any two individuals randomly selected from the pooled assemblage (i.e., quadratic entropy). 
-# 
-# @return a table of diversity table including the following arguments: 
-# \item{Assemblage}{the assemblage name.}
-# \item{Order.q}{the diversity order of q.}
-# \item{qTD, qPD, qFD}{the estimated asymptotic diversity or observed diversity of order q.} 
-# \item{s.e.}{standard error of diversity.}
-# \item{qTD.LCL, qPD.LCL, qFD.LCL and qTD.UCL, qPD.UCL, qFD.UCL}{the bootstrap lower and upper confidence limits for the diversity.}
-# \item{Method}{"Asymptotic" means asymptotic diversity and "Observed" means observed diversity.}
-# \item{Reftime}{the reference times for PD.}
-# \item{Type}{"PD" (effective total branch length) or "meanPD" (effective number of equally divergent lineages) for PD.}
-# \item{Tau}{the threshold of functional distinctiveness between any two species for FD (under FDtype = tau_values).}
-
-AO3D <- function(data, diversity = 'TD', q = seq(0, 2, 0.2), datatype = "abundance", nboot = 50, conf = 0.95, nT = NULL, method = c('Asymptotic', 'Observed'),
-                 PDtree, PDreftime = NULL, PDtype = 'meanPD', FDdistM, FDtype = 'AUC', FDtau = NULL) {
+qTD <- function(x, q){
   
-  if ( !(diversity %in% c('TD', 'PD', 'FD')) ) 
-    stop("Please select one of below diversity: 'TD', 'PD', 'FD'", call. = FALSE)
+  p <- x[x > 0] / sum(x)
   
-  if (diversity == "TD") {
-    checkdatatype = check.datatype(data, datatype, nT = nT, to.datalist = TRUE)
-    datatype = checkdatatype[[1]]
-    data = checkdatatype[[2]]
-    
-    q = check.q(q)
-    conf = check.conf(conf)
-    nboot = check.nboot(nboot)
-    
-    
-    if (sum(method == "Asymptotic") == length(method)) 
-      
-      out = asyTD(data, datatype, q, nboot, conf) else if (sum(method == "Observed") == length(method)) 
-        
-        out = obsTD(data, datatype, q, nboot, conf) else if (sum(method == c("Asymptotic", "Observed")) == length(method)) 
-          
-          out = rbind(asyTD(data, datatype, q, nboot, conf), 
-                      obsTD(data, datatype, q, nboot, conf))
-  }
-  
-  if (diversity == "PD") {
-    
-    if (datatype == "incidence_freq") 
-      stop("The diversity = 'PD' can only accept 'datatype = incidence_raw'.")
-    
-    checkdatatype = check.datatype(data, datatype, nT = nT, raw.to.inci = F)
-    datatype = checkdatatype[[1]]
-    data = checkdatatype[[2]]
-    nT = checkdatatype[[3]]
-    
-    checktree = check.tree(data, datatype, PDtree, PDreftime, nT)
-    PDreftime = checktree[[1]]
-    mytree = checktree[[2]]
-    mydata = checktree[[3]]
-    
-    q = check.q(q)
-    conf = check.conf(conf)
-    nboot = check.nboot(nboot)
-    PDtype = check.PDtype(PDtype)
-    
-    
-    if (sum(method == "Asymptotic") == length(method)) 
-      
-      out = asymPD(datalist = mydata, datatype = datatype, phylotr = mytree, 
-                   q = q, reft = PDreftime, cal = PDtype, nboot, conf) else if (sum(method == "Observed") == length(method)) 
-                     
-                     out = EmpPD(datalist = mydata, datatype = datatype, phylotr = mytree, 
-                                 q = q, reft = PDreftime, cal = PDtype, nboot, conf) else if (sum(method == c("Asymptotic", "Observed")) == length(method)) 
-                                   
-                                   out = rbind(asymPD(datalist = mydata, datatype = datatype, phylotr = mytree, 
-                                                      q = q, reft = PDreftime, cal = PDtype, nboot, conf), 
-                                               EmpPD(datalist = mydata, datatype = datatype, phylotr = mytree, 
-                                                     q = q, reft = PDreftime, cal = PDtype, nboot, conf))
-    
-  }
-  
-  if (diversity == "FD" & FDtype == "tau_values") {
-    checkdatatype = check.datatype(data, datatype, nT = nT)
-    datatype = checkdatatype[[1]]
-    data = checkdatatype[[2]]
-    
-    checkdistM = check.dist(data, datatype, FDdistM, FDtau)
-    FDtau = checkdistM[[1]]
-    distM = checkdistM[[2]]
-    dat = checkdistM[[3]]
-    
-    q = check.q(q)
-    conf = check.conf(conf)
-    nboot = check.nboot(nboot)
-    
-    
-    if (sum(method == "Asymptotic") == length(method)) 
-      out = FDtable_est(datalist = dat, dij = distM, q = q, datatype = datatype, 
-                        nboot = nboot, conf = conf, tau = FDtau) else if (sum(method == "Observed") == length(method)) 
-                          
-                          out = FDtable_mle(datalist = dat, dij = distM, q = q, datatype = datatype, 
-                                            nboot = nboot, conf = conf, tau = FDtau) else if (sum(method == c("Asymptotic", "Observed")) == length(method)) 
-                                              
-                                              out = rbind(FDtable_est(datalist = dat, dij = distM, q = q, datatype = datatype, 
-                                                                      nboot = nboot, conf = conf, tau = FDtau), 
-                                                          FDtable_mle(datalist = dat, dij = distM, q = q, datatype = datatype, 
-                                                                      nboot = nboot, conf = conf, tau = FDtau))
-    
-  }
-  
-  if (diversity == "FD" & FDtype == "AUC") {
-    
-    checkdatatype = check.datatype(data, datatype, nT = nT)
-    datatype = checkdatatype[[1]]
-    data = checkdatatype[[2]]
-    
-    checkdistM = check.dist(data, datatype, FDdistM, threshold = FALSE)
-    distM = checkdistM[[2]]
-    dat = checkdistM[[3]]
-    
-    q = check.q(q)
-    conf = check.conf(conf)
-    nboot = check.nboot(nboot)
-    
-    if (sum(method == "Asymptotic") == length(method)) 
-      out = AUCtable_est(datalist = dat, dij = distM, q = q, datatype = datatype, 
-                         nboot = nboot, conf = conf,  tau = NULL) else if (sum(method == "Observed") == length(method)) 
-                           
-                           out = AUCtable_mle(datalist = dat, dij = distM, q = q, datatype = datatype, 
-                                              nboot = nboot, conf = conf, tau = NULL) else if (sum(method == c("Asymptotic", "Observed")) == length(method)) 
-                                                
-                                                out = rbind(AUCtable_est(datalist = dat, dij = distM, q = q, datatype = datatype, 
-                                                                         nboot = nboot, conf = conf, tau = NULL), 
-                                                            AUCtable_mle(datalist = dat, dij = distM, q = q, datatype = datatype, 
-                                                                         nboot = nboot, conf = conf, tau = NULL))
-    
-  }
-  
-  return(out)
-}
-
-
-# check datatype and transform incidence_raw to incidence_freq
-# 
-# \code{check.datatype}
-# 
-# @param data input data
-# @param datatype data type
-# @param nT the vector of sampling units for each assemblage
-# @param to.datalist a binary choice whether transform data to datalist
-# @param raw.to.inci a binary choice whether transform incidence raw data to incidence frequency data
-# @return a list of datatype, matrix data, and nT
-# @export
-
-check.datatype <- function(data, datatype, nT = nT, to.datalist = FALSE, raw.to.inci = TRUE) {
-  if(datatype == "incidence") stop('Please try datatype = "incidence_freq" or datatype = "incidence_raw".')  
-  DATATYPE <- c("abundance", "incidence_freq", "incidence_raw")
-  if(is.na(pmatch(datatype, DATATYPE)))
-    stop("invalid datatype")
-  if(pmatch(datatype, DATATYPE) == -1)
-    stop("ambiguous datatype")
-  datatype <- match.arg(datatype, DATATYPE)
-  
-  if (datatype == "incidence_raw" & raw.to.inci == TRUE) {
-    if (!inherits(data, "list")) 
-      data = as.incfreq(data, nT = nT) else if (length(data) != 1)
-        data = as.incfreq(data, nT = nT) else {
-          tmp = names(data)
-          data = list(as.incfreq(data, nT = nT))
-          names(data) = tmp
-        }
-      datatype = "incidence_freq"
-  }
-  
-  if (datatype == "incidence_raw") {
-    
-    if (inherits(data, c("numeric", "integer", "double"))) {
-      data = as.matrix(data)
-      nT = c('Assemblage_1' = 1)
-    }
-    
-    if (inherits(data, "list")) {
-      data = lapply(data, function(i) data.frame(i))
-      data2 = lapply(data, function(i) {
-        i$species = rownames(i)
-        return(i) 
-      })
-      nT = as.vector(sapply(data, ncol))
-      names(nT) = if (is.null(data)) paste0("Assemblage_", 1:length(data)) else names(data)
-      
-      data = data2[[1]]
-      if (length(data2) > 1) {
-        for(i in 2:length(data2)){
-          data = full_join(data, data2[[i]], by = "species")
-        }
-      }
-      data[is.na(data)] = 0
-      rownames(data) = data$species
-      data = data %>% select(-species)
-      
-    }
-    
-    if (ncol(data) != sum(nT)) stop("Number of columns does not euqal to the sum of nT (number of sampling units for each assemblage).", call. = FALSE)
-  }
-  
-  if (datatype != "incidence_raw") {
-    
-    if(inherits(data, "list")){
-      
-      if(length(data) == 1){
-        
-        dat = as.matrix(data[[1]])
-        if (is.null(names(data))) colnames(dat) = "Assemblage_1" else colnames(dat) = names(data)
-        data = dat
-        
-      } else {
-        region_names = if (is.null(names(data))) paste0("Assemblage_", 1:length(data)) else names(data)
-        
-        data2 = lapply(data, function(x) {
-          if (is.null(names(x)) & datatype == 'abundance') names(x) = paste('Species', 1:length(x), sep = '')
-          if (is.null(names(x)) & datatype == 'incidence_freq') names(x) = c('nT', paste('Species', 1:(length(x)-1), sep = ''))
-          
-          x = as.matrix(x)
-          x = data.frame('species' = rownames(x), x)
-          
-          return(x)
-        })
-        datam = data2[[1]]
-        for(i in 2:length(data2)){
-          datam = data.frame(full_join(datam, data2[[i]], by = "species"))
-        }
-        datam[is.na(datam)] = 0
-        datam = column_to_rownames(datam, var = "species")
-        names(datam) = region_names
-        
-        if (is.null(names(data[[1]]))) rownames(datam) = NULL
-        data = datam
-      }
-      
-    } else if (inherits(data, c("numeric", "integer", "double"))) {
-      data = as.matrix(data)
-      colnames(data) = 'Assemblage_1'
-    }
-    
-    data = as.matrix(data)
-    
-    if (to.datalist == TRUE) {
-      datalist <- lapply(1:ncol(data), function(i)  x <- data[,i])
-      names(datalist) = colnames(data)
-      data = datalist
-    }
-    
-  }
-  
-  if(inherits(nT, 'data.frame')) nT = unlist(nT)
-  
-  return(list(datatype, data, nT))
-}
-
-check.q <- function(q) {
-  
-  if(!inherits(q, "numeric"))
-    stop("invalid class of order q, q should be a postive value/vector of numeric object", call. = FALSE)
-  if(min(q) < 0){
-    warning("ambigous of order q, we only compute postive q", call. = FALSE)
-    q <- q[q >= 0]
-  }
-  
-  return(q)
-}
-
-
-check.conf <- function(conf) {
-  
-  if ((conf < 0) | (conf > 1) | (is.numeric(conf)==F)) stop('Please enter value between zero and one for confident interval.', call. = FALSE)
-  
-  return(conf)
-}
-
-check.nboot <- function(nboot) {
-  
-  if ((nboot < 0) | (is.numeric(nboot)==F)) stop('Please enter non-negative integer for nboot.', call. = FALSE)
-  
-  return(nboot)
-}
-
-check.base <- function(base) {
-  
-  BASE <- c("size", "coverage")
-  if (is.na(pmatch(base, BASE))) stop("invalid datatype")
-  if (pmatch(base, BASE) == -1) stop("ambiguous datatype")
-  base <- match.arg(base, BASE)
-  
-  return(base)
-}
-
-obsTD = function(data, datatype, q, nboot, conf) {
-  
-  if(datatype=="abundance"){
-    out <- lapply(1:length(data),function(i){
-      dq <- Diversity_profile_MLE(data[[i]],q)
-      if(nboot > 1){
-        Prob.hat <- EstiBootComm.Ind(data[[i]])
-        Abun.Mat <- rmultinom(nboot, sum(data[[i]]), Prob.hat)
-        
-        mt = apply(Abun.Mat, 2, function(xb) Diversity_profile_MLE(xb, q))
-        if (!is.matrix(mt)) mt = matrix(mt, nrow = 1)
-        error <- qnorm(1-(1-conf)/2) * 
-          apply(mt, 1, sd, na.rm=TRUE)
-        
-      } else {error = NA}
-      out <- data.frame("Assemblage" = names(data)[i], "Order.q" = q, "qTD" = dq, "s.e." = error/qnorm(1-(1-conf)/2),
-                        "qTD.LCL" = dq - error, "qTD.UCL" = dq + error, "Method" = "Observed")
-      out$qTD.LCL[out$qTD.LCL<0] <- 0
-      out
-    })
-    out <- do.call(rbind,out)
-  }else if(datatype=="incidence_freq"){
-    out <- lapply(1:length(data),function(i){
-      dq <- Diversity_profile_MLE.inc(data[[i]],q)
-      if(nboot > 1){
-        nT <- data[[i]][1]
-        Prob.hat <- EstiBootComm.Sam(data[[i]])
-        Abun.Mat <- t(sapply(Prob.hat, function(p) rbinom(nboot, nT, p)))
-        Abun.Mat <- matrix(c(rbind(nT, Abun.Mat)),ncol=nboot)
-        tmp <- which(colSums(Abun.Mat)==nT)
-        if(length(tmp)>0) Abun.Mat <- Abun.Mat[,-tmp]
-        if(ncol(Abun.Mat)==0){
-          error = 0
-          warning("Insufficient data to compute bootstrap s.e.")
-        }else{	
-          
-          mt = apply(Abun.Mat, 2, function(yb) Diversity_profile_MLE.inc(yb, q))
-          if (!is.matrix(mt)) mt = matrix(mt, nrow = 1)
-          error <- qnorm(1-(1-conf)/2) * 
-            apply(mt, 1, sd, na.rm=TRUE)
-        }
-      } else {error = NA}
-      out <- data.frame("Assemblage" = names(data)[i], "Order.q" = q, "qTD" = dq, "s.e." = error/qnorm(1-(1-conf)/2),
-                        "qTD.LCL" = dq - error, "qTD.UCL" = dq + error, "Method" = "Observed")
-      out$qTD.LCL[out$qTD.LCL<0] <- 0
-      out
-    })
-    out <- do.call(rbind,out)
-  }
-  
-  return(out)
-}
-
-Diversity_profile_MLE <- function(x,q){
-  p <- x[x>0]/sum(x)
-  Sub <- function(q){
-    if(q==0) sum(p>0)
-    else if(q==1) exp(-sum(p*log(p)))
-    else exp(1/(1-q)*log(sum(p^q)))
+  Sub <- function(q) {
+    if(q == 0) sum(p > 0)
+    else if(q == 1) exp(-sum(p * log(p)))
+    else exp(1 / (1 - q) * log(sum(p^q)))
   }
   sapply(q, Sub)
 }
+
