@@ -1,7 +1,7 @@
 Package: MF.beta4
 Type: Package
 Title: Measuring ecosystem multifunctionality and assessing BEF relationships
-Version: 0.1.0
+Version: 1.0.0
 Author: Anne Chao, Chun-Yu Liu, K. H. Hu
 Maintainer: Anne Chao <chao@stat.nthu.edu.tw>
 Description: Provide simple functions to (i) compute a class of multifunctionality
