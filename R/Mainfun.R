@@ -142,7 +142,7 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
     species_div <- lapply(id_data$plotID,function(p){
       data_s <- species_data %>% filter(plotID == p) %>% group_by(species) %>%
         summarise(abundance = sum(abundance))
-      div = qTD(data_s$abundance,q=q,nboot = 0,method = "Observed")
+      div = qTD(data_s$abundance, q = q)
       return(data.frame("Species diversity"=rep(div,ifelse(ncol(func_data)>1,2,1))))
     }) %>% do.call(rbind,.)
     
@@ -322,9 +322,9 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
           data_alpha = as.matrix(data) %>% as.vector
           data_alpha = data_alpha[data_alpha > 0]
           
-          gamma = qTD(data_gamma,q=q,nboot = 0,method = "Observed")
+          gamma = qTD(data_gamma, q = q)
           g = gamma
-          alpha = qTD(data_alpha,q=q,nboot = 0,method = "Observed")
+          alpha = qTD(data_alpha, q = q)
           a = alpha/2
           b = g/a
           return(list(gamma=g,alpha=a,beta=b))
@@ -424,9 +424,9 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
             data_alpha = as.matrix(data) %>% as.vector
             data_alpha = data_alpha[data_alpha > 0]
             
-            gamma = qTD(data_gamma,q=q,nboot = 0,method = "Observed")
+            gamma = qTD(data_gamma, q = q)
             g = gamma
-            alpha = qTD(data_alpha,q=q,nboot = 0,method = "Observed")
+            alpha = qTD(data_alpha, q = q)
             a = alpha/2
             b = g/a
             return(list(gamma=g,alpha=a,beta=b))
