@@ -4,12 +4,7 @@
 \alias{MFggplot}
 \title{ggplot2 extension for a MF1_single or MF2_multiple object}
 \usage{
-MFggplot(
-  output,
-  model = "LMM.both",
-  caption = "slope",
-  by_group = NULL
-)
+MFggplot(output, model = "LMM.both", caption = "slope", by_group = NULL)
 }
 \arguments{
 \item{output}{the output obtained from \code{MF1_single} or \code{MF2_multiple}. \cr
@@ -23,7 +18,7 @@ Default is \code{model = "LMM.both"}.}
 or \code{caption = "R.squared"} to show the ordinary R-squared for linear models or estimated marginal and conditional R-squared for linear mixed models in each plot.
 Default is \code{caption = "slope"}.}
 
-\item{by_group}{the column name of the stratifying variable that is used to group data for model fitting. For example, if \code{by_group = “country”}, then model will be fitted within each country. Default is \code{NULL}. \cr
+\item{by_group}{the column name of the stratifying variable that is used to group data for model fitting. For example, if \code{by_group = "country"}, then model will be fitted within each country. Default is \code{NULL}. \cr
 It is required if a linear mixed model is selected in the \code{model}. \cr
 If \code{output} is obtained from \code{MF2_multiple}, the \code{by_group} setting must be the same as that set in \code{MF2_multiple}.}
 }
@@ -35,9 +30,9 @@ functions are corrected. The fitted lines for the chosen model are also shown in
 For an \code{MF2_multiple} object of given individual function weights, this function returns a list of two objects (\code{$corr_uncorrected} and \code{$corr_corrected})
 that respectively for two cases: (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for. \cr
 
-Each object consists of four figures: “\code{$ALL}” returns a figure that depicts the BEF relationship between alpha/beta/gamma multifunctionality of
+Each object consists of four figures: "\code{$ALL}" returns a figure that depicts the BEF relationship between alpha/beta/gamma multifunctionality of
 order q (= 0, 1 and 2) and the corresponding species diversity of the same order q. The fitted lines for the chosen model are also shown in the figure.
-“\code{$Gamma}” returns only the gamma part of “\code{$ALL}”, “\code{$Alpha}” returns only the alpha part of “\code{$ALL}”, and “\code{$Beta}” returns only the beta part of “\code{$ALL}”.
+"\code{$Gamma}" returns only the gamma part of "\code{$ALL}", "\code{$Alpha}" returns only the alpha part of "\code{$ALL}", and "\code{$Beta}" returns only the beta part of "\code{$ALL}".
 }
 \description{
 \code{MFggplot} provides graphical BEF relationships based on the output from the function \code{MF1_single} or \code{MF2_multiple}.

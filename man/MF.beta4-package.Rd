@@ -37,9 +37,9 @@ Maintainer: Anne Chao <chao@stat.nthu.edu.tw>
 
 Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2023). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. To appear in Ecology Letters.  
 
-Müller, J., Mitesser, O. Cadotte, M. W., van der Plas, F., Mori, A, Ammer, C., Eisenhauer N. (2023). Enhancing the structural diversity between forest patches – a concept and real-world experiment to study biodiversity and multifunctionality across spatial scales. Global Change Biology, 29, 1437–1450.
+Müller, J., Mitesser, O. Cadotte, M. W., van der Plas, F., Mori, A, Ammer, C., Eisenhauer N. (2023). Enhancing the structural diversity between forest patches - a concept and real-world experiment to study biodiversity and multifunctionality across spatial scales. Global Change Biology, 29, 1437-1450.
 
-Ratcliffe, S. Wirth, C., Jucker, T. van der Plas, F., Scherer-Lorenzen, M. Verheyen, K. et al. (2017a). Biodiversity and ecosystem functioning relations in European forests depend on environmental context. Ecology Letters, 20, 1414–1426.
+Ratcliffe, S. Wirth, C., Jucker, T. van der Plas, F., Scherer-Lorenzen, M. Verheyen, K. et al. (2017a). Biodiversity and ecosystem functioning relations in European forests depend on environmental context. Ecology Letters, 20, 1414-1426.
 
 Ratcliffe, S. Wirth, C., Jucker, T., van der Plas, F., Scherer-Lorenzen, M., Verheyen, K. et al. (2017b). Data for Biodiversity and ecosystem functioning relations in European forests depend on environmental context. https://doi.org/10.6084/m9.figshare.5368846.v1
 

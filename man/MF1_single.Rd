@@ -4,18 +4,13 @@
 \alias{MF1_single}
 \title{multifunctionality measures for a single ecosystem}
 \usage{
-MF1_single(
-  func_data,
-  species_data = NULL,
-  weight = 1,
-  q = c(0, 1, 2)
-)
+MF1_single(func_data, species_data = NULL, weight = 1, q = c(0, 1, 2))
 }
 \arguments{
 \item{func_data}{ecosystem function data should be input as a data.frame (ecosystems by functions). All function values must be normalized between 0 and 1.\cr
 The row names of \code{func_data} should be set the same as the names of plotID specified in \code{species_data} if \code{species_data} is not \code{NULL}.}
 
-\item{species_data}{species abundance data should be input as a data.frame and must include three columns: ’plotID’, ’species’ and ’abundance’ (or any proxy such as basal area). Default is \code{NULL}.}
+\item{species_data}{species abundance data should be input as a data.frame and must include three columns: "plotID", "species" and "abundance" (or any proxy such as basal area). Default is \code{NULL}.}
 
 \item{weight}{a constant number (if all weights are equal) or a numerical vector specifying weights for ecosystem functions.
 In the latter case, the length of \code{weight} must be equal to the number of functions.
@@ -24,8 +19,8 @@ Default is \code{weight = 1}, which means equal weight and weight = 1 for all ec
 \item{q}{a numerical vector specifying the multifunctionality and diversity orders. Default is q = 0, 1 and 2.}
 }
 \value{
-a data.frame with columns ’plotID’, ’Type’ (corr_uncorrected or corr_corrected), ’Order.q’ and ’qMF’ (multifunctionality of order q).
-When \code{species_data} is not \code{NULL}, the data.frame will include an additional column ’Species.diversity’ in the last column.
+a data.frame with columns "plotID", "Type" (corr_uncorrected or corr_corrected), "Order.q" and "qMF" (multifunctionality of order q).
+When \code{species_data} is not \code{NULL}, the data.frame will include an additional column "Species.diversity" in the last column.
 }
 \description{
 \code{MF1_single} computes multifunctionality measures of orders q = 0, 1 and 2 for given function weights in a single ecosystem separately for two cases
