@@ -4,7 +4,7 @@ Title: Measuring Ecosystem Multifunctionality and Assessing BEF Relationships
 Version: 1.0.0
 Author: Anne Chao, Chun-Yu Liu, K. H. Hu
 Maintainer: Anne Chao <chao@stat.nthu.edu.tw>
-URL: https://chao.stat.nthu.edu.tw/wordpress/software_download/mf-beta4/
+URL: https://github.com/AnneChao/MF.beta4
 Description: Provide simple functions to (i) compute a class of multifunctionality
       measures for a single ecosystem for given function weights, (ii) decompose gamma
       multifunctionality for multiple ecosystems into a within-ecosystem component (alpha
