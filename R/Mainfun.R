@@ -18,6 +18,10 @@
 #' @import tidyr
 #' @importFrom stats cor
 #' @importFrom dplyr %>%
+#' @importFrom lmerTest lmer
+#' @importFrom stats coef lm model.matrix var
+#' @importFrom utils combn
+#' 
 #'
 #' @return a data.frame with columns "plotID", "Type" (corr_uncorrected or corr_corrected), "Order.q" and "qMF" (multifunctionality of order q).
 #' When \code{species_data} is not \code{NULL}, the data.frame will include an additional column "Species.diversity" in the last column.
@@ -192,7 +196,6 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #'                species_data = forest_biodiversity_data,
 #'                weight = 1,
 #'                by_group = "country")
-#' }
 #' 
 #' 
 #' ### Use partial data to quickly obtain output 
@@ -212,6 +215,7 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #'              weight = 1,
 #'              by_group = "country")
 #' 
+#' }
 #' 
 #' @export
 

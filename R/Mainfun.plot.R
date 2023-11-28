@@ -96,6 +96,9 @@
 #' MFggplot(output3, model = "LMM.both", by_group="country", caption = "slope")
 #' 
 #' 
+#' 
+#' \dontrun{
+#' 
 #' ## multiple ecosystems
 #' data("forest_function_data_raw")
 #' data("forest_biodiversity_data")
@@ -117,7 +120,9 @@
 #'                                caption = "slope")
 #' figure_LMM_GER_ITA$corr_uncorrected$ALL
 #' figure_LMM_GER_ITA$corr_corrected$ALL
-#'
+#' 
+#' }
+#' 
 #' @export
 
 MFggplot <- function(output, model = "LMM.both", caption = "slope", by_group = NULL){
@@ -615,4 +620,18 @@ Lmm_fit <- function(data, r_effect = "intercept", each_group = FALSE){
   
   ret
 }
+
+
+## ========== no visible global function definition for R CMD check ========== ##
+utils::globalVariables(c("coef", ".", "Order.q", "plotID", "species", "abundance", 
+                         "MF_g", "Tau","MF_a", "MF_b", 
+                         "L_g", "R_g", "L_a","R_a", "L_b", "R_b",
+                         "corr_corrected_Gamma", "corr_corrected_Beta", "x1","x2", 
+                         "Species_Gamma", "Species_Alpha", "Species_Beta", "r.squared", 
+                         "p.value", "term", "std.error", "statistic", 
+                         "Species.diversity", "Significance", "group", "estimate", "Label",
+                         "h", "v", "(Intercept)", "Intercept", "Slope", "x0", "R2_C", "R2_M", "R2_type", "."
+                         )) 
+
+
 

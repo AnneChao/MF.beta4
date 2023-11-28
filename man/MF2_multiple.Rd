@@ -55,7 +55,6 @@ library(dplyr)
                species_data = forest_biodiversity_data,
                weight = 1,
                by_group = "country")
-}
 
 
 ### Use partial data to quickly obtain output 
@@ -75,5 +74,6 @@ MF2_multiple(func_data = GER_ITA_forest_function_normalized[,6:32],
              weight = 1,
              by_group = "country")
 
+}
 
 }

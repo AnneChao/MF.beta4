@@ -97,6 +97,9 @@ output3 <- data.frame(output3, country=rep(GER_ITA_forest_function_normalized$co
 MFggplot(output3, model = "LMM.both", by_group="country", caption = "slope")
 
 
+
+\dontrun{
+
 ## multiple ecosystems
 data("forest_function_data_raw")
 data("forest_biodiversity_data")
@@ -118,5 +121,7 @@ figure_LMM_GER_ITA <- MFggplot(output4, model = "LMM.both", by_group = "country"
                                caption = "slope")
 figure_LMM_GER_ITA$corr_uncorrected$ALL
 figure_LMM_GER_ITA$corr_corrected$ALL
+
+}
 
 }
