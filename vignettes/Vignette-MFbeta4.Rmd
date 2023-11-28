@@ -417,4 +417,4 @@ Biodiversity and ecosystem functioning relations in European forests depend on e
 <li> Ratcliffe, S., Wirth, C., Jucker, T., van der Plas, F., Scherer-Lorenzen, M., Verheyen, K., et al. (2017b).
 Data for Biodiversity and ecosystem functioning relations in European forests depend on environmental context. </li>
 \
-<li> Scherer-Lorenzen, M. et al. (2023). The functional significance of tree species diversity in European forests - the FunDivEUROPE dataset [Dataset]. Dryad. <a href=" https://doi.org/10.5061/dryad.9ghx3ffpz">  https://doi.org/10.5061/dryad.9ghx3ffpz</a></li>
+<li> Scherer-Lorenzen, M. et al. (2023). The functional significance of tree species diversity in European forests - the FunDivEUROPE dataset [Dataset]. Dryad. 
