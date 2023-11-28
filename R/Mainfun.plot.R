@@ -20,9 +20,9 @@
 #' @import patchwork
 #' @import ggpubr
 #' @import grid
-#' @import lme4
 #' @import purrr
 #' @importFrom dplyr %>%
+#' @importFrom lme4 fixef VarCorr
 #'
 #' @return For an \code{MF1_single} object, this function returns a figure that plots the BEF relationship between multifunctionality of
 #' order q (= 0, 1 and 2) and species diversity of the same order q for two cases (i) correlations between functions are not corrected for, and (ii) correlations between
