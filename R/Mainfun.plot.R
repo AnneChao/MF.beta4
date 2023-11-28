@@ -21,7 +21,6 @@
 #' @import ggpubr
 #' @import grid
 #' @import lme4
-#' @import lmerTest
 #' @import purrr
 #' @importFrom dplyr %>%
 #'
@@ -628,7 +627,7 @@ utils::globalVariables(c("coef", ".", "Order.q", "plotID", "species", "abundance
                          "L_g", "R_g", "L_a","R_a", "L_b", "R_b",
                          "corr_corrected_Gamma", "corr_corrected_Beta", "x1","x2", 
                          "Species_Gamma", "Species_Alpha", "Species_Beta", "r.squared", 
-                         "p.value", "term", "std.error", "statistic", 
+                         "p.value", "term", "std.error", "statistic", "Type", 
                          "Species.diversity", "Significance", "group", "estimate", "Label",
                          "h", "v", "(Intercept)", "Intercept", "Slope", "x0", "R2_C", "R2_M", "R2_type", "."
                          )) 
