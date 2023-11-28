@@ -67,7 +67,7 @@ following methodology paper and the R package.
 
 ## SOFTWARE NEEDED TO RUN MF.beta4 IN R
 - Required: [R](https://cran.r-project.org/)
-- Suggested: [RStudio IDE](https://www.rstudio.com/products/RStudio/#Desktop)
+- Suggested: [RStudio IDE](https://posit.co/products/open-source/rstudio/#Desktop)
 
 ## HOW TO RUN MF.beta4:
 
@@ -415,6 +415,6 @@ figure_LMM_GER_ITA$corr_corrected$ALL
 Biodiversity and ecosystem functioning relations in European forests depend on environmental context. Ecology Letters, 20, 1414–1426.</li>
 \
 <li> Ratcliffe, S., Wirth, C., Jucker, T., van der Plas, F., Scherer-Lorenzen, M., Verheyen, K., et al. (2017b).
-Data for Biodiversity and ecosystem functioning relations in European forests depend on environmental context. </li>
+Data for Biodiversity and ecosystem functioning relations in European forests depend on environmental context. <a href= "https://doi.org/10.6084/m9.figshare.5368846.v1"> https://doi.org/10.6084/m9.figshare.5368846.v1 </a></li>
 \
-<li> Scherer-Lorenzen, M. et al. (2023). The functional significance of tree species diversity in European forests - the FunDivEUROPE dataset [Dataset]. Dryad. 
+<li> Scherer-Lorenzen, M. et al. (2023). The functional significance of tree species diversity in European forests - the FunDivEUROPE dataset [Dataset]. Dryad. <a href=" https://doi.org/10.5061/dryad.9ghx3ffpz">  https://doi.org/10.5061/dryad.9ghx3ffpz</a></li>
