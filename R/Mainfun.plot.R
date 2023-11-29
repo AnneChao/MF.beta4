@@ -39,7 +39,7 @@
 #' 
 #' library(dplyr)
 #' 
-#' \dontrun{
+#' \donttest{
 #'   
 #'   ### Use data from six countries
 #'   
@@ -96,7 +96,7 @@
 #' 
 #' 
 #' 
-#' \dontrun{
+#' \donttest{
 #' 
 #' ## multiple ecosystems
 #' data("forest_function_data_raw")

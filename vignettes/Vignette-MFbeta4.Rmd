@@ -16,7 +16,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
                       fig.align = 'center',
                       fig.width = 7, fig.height = 5,
                       warning = FALSE, message = FALSE)
-options("width"=200)
+options("width" = 200, digits = 3)
 library(MF.beta4)
 library(tidyverse)
 library(grid)

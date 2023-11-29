@@ -30,7 +30,7 @@
 #' 
 #' library(dplyr)
 #' 
-#' \dontrun{
+#' \donttest{
 #'   
 #'   ### Use data from six countries
 #'   
@@ -184,7 +184,7 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #' 
 #' library(dplyr)
 #' 
-#' \dontrun{
+#' \donttest{
 #'   
 #'   ### Use data from five countries (data in Finland are excluded)
 #'  

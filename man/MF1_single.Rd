@@ -30,7 +30,7 @@ When \code{species_data} is not \code{NULL}, the data.frame will include an addi
 
 library(dplyr)
 
-\dontrun{
+\donttest{
   
   ### Use data from six countries
   

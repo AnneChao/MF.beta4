@@ -43,7 +43,7 @@ the data.frame will show an additional column contain "Species.diversity" in the
 
 library(dplyr)
 
-\dontrun{
+\donttest{
   
   ### Use data from five countries (data in Finland are excluded)
  

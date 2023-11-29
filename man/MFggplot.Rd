@@ -41,7 +41,7 @@ order q (= 0, 1 and 2) and the corresponding species diversity of the same order
 
 library(dplyr)
 
-\dontrun{
+\donttest{
   
   ### Use data from six countries
   
@@ -98,7 +98,7 @@ MFggplot(output3, model = "LMM.both", by_group="country", caption = "slope")
 
 
 
-\dontrun{
+\donttest{
 
 ## multiple ecosystems
 data("forest_function_data_raw")
