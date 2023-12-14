@@ -44,18 +44,16 @@ the data.frame will show an additional column contain "Species.diversity" in the
 library(dplyr)
 
 \donttest{
-  
-  ### Use data from five countries (data in Finland are excluded)
- 
-  data("forest_function_data_normalized")
-  data("forest_biodiversity_data")
-  forest_function_data_normalized <- filter(forest_function_data_normalized, country != "FIN")
-  forest_biodiversity_data <- forest_biodiversity_data[-(1:48),]
-  MF2_multiple(func_data = forest_function_data_normalized[,6:32],
-               species_data = forest_biodiversity_data,
-               weight = 1,
-               by_group = "country")
+### Use data from five countries (data in Finland are excluded)
 
+data("forest_function_data_normalized")
+data("forest_biodiversity_data")
+forest_function_data_normalized <- filter(forest_function_data_normalized, country != "FIN")
+forest_biodiversity_data <- forest_biodiversity_data[-(1:48),]
+MF2_multiple(func_data = forest_function_data_normalized[,6:32],
+             species_data = forest_biodiversity_data,
+             weight = 1,
+             by_group = "country")
 
 ### Use partial data to quickly obtain output 
 ### (Take the first 18 plots in Germany and the last 18 plots in Italy)
@@ -73,7 +71,6 @@ MF2_multiple(func_data = GER_ITA_forest_function_normalized[,6:32],
              species_data = GER_ITA_forest_biodiversity,
              weight = 1,
              by_group = "country")
-
 }
 
 }

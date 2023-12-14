@@ -2,7 +2,7 @@ Package: MF.beta4
 Type: Package
 Title: Measuring Ecosystem Multi-Functionality and Its Decomposition
 Version: 1.0.0
-Author: Anne Chao, Chun-Yu Liu, Kai-Hsiang Hu
+Author: Anne Chao [aut, cre], Chun-Yu Liu [ctb], KaiHsiang Hu [ctb]
 Maintainer: Anne Chao <chao@stat.nthu.edu.tw>
 Authors@R: 
   c(person("Anne", 
@@ -27,7 +27,7 @@ Description: Provide simple functions to (i) compute a class of
   between functions can be corrected for. Based on biodiversity 
   and ecosystem function data, this software also facilitates 
   graphics for assessing biodiversity-ecosystem functioning 
-  relationships across scales.
+  relationships across scales. 
 License: GPL (>= 3)
 Depends: R (>= 4.0)
 Imports: broom,
@@ -49,4 +49,6 @@ RoxygenNote: 7.2.3
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 ByteCompile: true
+Packaged: 2023-11-29 18:28:02 UTC; KaiHsiang
+Repository: CRAN
 

@@ -3,8 +3,8 @@ title: "An Introduction to MF.beta4 via Examples"
 author: "Anne Chao, Chun-Yu Liu, K. H. Hu"
 date: "`r Sys.Date()`"
 output:
-  rmarkdown::html_vignette:
-    vignette: >
+  pdf_document
+vignette: >
       %\VignetteIndexEntry{A Quick Introduction to MF.beta4 via Examples}
       %\VignetteEngine{knitr::rmarkdown}
       %\VignetteEncoding{UTF-8}

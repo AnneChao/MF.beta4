@@ -31,15 +31,13 @@ When \code{species_data} is not \code{NULL}, the data.frame will include an addi
 library(dplyr)
 
 \donttest{
-  
-  ### Use data from six countries
-  
-  data("forest_function_data_normalized")
-  data("forest_biodiversity_data")
-  MF1_single(func_data = forest_function_data_normalized[,6:31], weight = 1,
-             species_data = forest_biodiversity_data)
-}
+### Use data from six countries
 
+data("forest_function_data_normalized")
+data("forest_biodiversity_data")
+MF1_single(func_data = forest_function_data_normalized[,6:31], weight = 1,
+           species_data = forest_biodiversity_data)
+}
 
 ### Use partial data to quickly obtain output 
 ### (Take the first 18 plots in Germany and the last 18 plots in Italy)
