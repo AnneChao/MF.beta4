@@ -23,6 +23,7 @@
 #' @import purrr
 #' @importFrom dplyr %>%
 #' @importFrom lme4 fixef VarCorr
+#' @importFrom grDevices hcl
 #'
 #' @return For an \code{MF1_single} object, this function returns a figure that plots the BEF relationship between multifunctionality of
 #' order q (= 0, 1 and 2) and species diversity of the same order q for two cases (i) correlations between functions are not corrected for, and (ii) correlations between
@@ -141,7 +142,17 @@ MFggplot <- function(output, model = "LMM.both", caption = "slope", by_group = N
   if(!(text %in% c("slope","R.squared")))
     stop("Error: the argument text should be `slope` or `R.squared`.")
   
-  stdPalette <- c("blue", "#00AAAA", "darkorange","gray55","#FF88C2", "purple2")
+  # stdPalette <- c("blue", "#00AAAA", "darkorange","gray55","#FF88C2", "purple2")
+  
+  # Check if the number of unique 'Country' is 6 or less
+  if (length(unique(output$country)) <= 6){
+    stdPalette <- c("blue", "#00AAAA", "darkorange","gray55","#FF88C2", "purple2")
+  }else{
+    # If there are more than 6 countries, start with the same predefined color palette
+    # Then extend the palette by generating additional colors using the 'ggplotColors' function
+    stdPalette <- c("blue", "#00AAAA", "darkorange","gray55","#FF88C2", "purple2")
+    stdPalette <- c(stdPalette, ggplotColors(length(unique(output$country))-6))
+  }
   abc<-scale_linetype_manual(values = c( "Significant slope (P < 0.05)" = "solid","Nonsignificant slope" = "dashed"), name = NULL, drop = FALSE)
   
   
@@ -613,6 +624,29 @@ Lmm_fit <- function(data, r_effect = "intercept", each_group = FALSE){
   }
   
   ret
+}
+
+# Generate Color Palette for ggplot2
+#
+# This function creates a color palette suitable for ggplot2 visualizations by evenly spacing colors in the HCL color space. The function ensures that the colors are well-distributed and visually distinct, making it ideal for categorical data where each category needs to be represented by a different color.
+#
+# @param g An integer indicating the number of distinct colors to generate. This value should be a positive integer, with higher values resulting in a broader range of colors.
+# @return A vector of color codes in hexadecimal format, suitable for use in ggplot2 charts and plots. The length of the vector will match the input parameter `g`.
+# @examples
+# # Generate a palette of 5 distinct colors
+# ggplotColors(5)
+#
+# # Use the generated colors in a ggplot2 chart
+# library(ggplot2)
+# df <- data.frame(x = 1:5, y = rnorm(5), group = factor(1:5))
+# ggplot(df, aes(x, y, color = group)) +
+#   geom_point() +
+#   scale_color_manual(values = ggplotColors(5))
+#
+ggplotColors <- function(g){
+  d <- 360/g # Calculate the distance between colors in HCL color space
+  h <- cumsum(c(15, rep(d,g - 1))) # Create cumulative sums to define hue values
+  hcl(h = h, c = 100, l = 65) # Convert HCL values to hexadecimal color codes
 }
 
 
