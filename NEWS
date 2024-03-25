@@ -1,2 +1,9 @@
 # MF.beta4 1.0.0
 - Create the project and ready to upload to CRAN.
+
+# MF.beta4 1.0.1
+- Modify wrong vignette name.
+
+# MF.beta4 1.0.2
+- Improved color palette generation in `MFggplot`. This update addresses the limitation of the fixed 6-color palette, enhancing clarity and user experience in data representation.
+
