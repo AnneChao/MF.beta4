@@ -7,3 +7,5 @@
 # MF.beta4 1.0.2
 - Improved color palette generation in `MFggplot`. This update addresses the limitation of the fixed 6-color palette, enhancing clarity and user experience in data representation.
 
+# MF.beta4 1.0.3
+- Modify existence detection.
