@@ -632,7 +632,7 @@ qMF_diversity <- function(w, v,q,tau=0.5,di=NULL,diversity="gamma"){
       1/N*exp(-sum(t(V)%*%Vv))
     }
     else {
-      Vv <- ifelse(is.na(v1),0,(v_plus/sum(V*(v%*%R)))^q)
+      Vv <- ifelse(v1==0,0,(v_plus/sum(V*(v%*%R)))^q)
       1/N*(sum(V*rowSums(Vv)))^(1/(1-q))
     }
   }
@@ -668,7 +668,7 @@ qMF_diversity <- function(w, v,q,tau=0.5,di=NULL,diversity="gamma"){
       1/N*exp(-sum(t(V)%*%Vv))
     }
     else {
-      Vv <- ifelse(is.na(v1) & ai==0,0,(ai/sum(V%*%ai))^q)
+      Vv <- ifelse(v1==0 & ai==0,0,(ai/sum(V%*%ai))^q)
       1/N*(sum(V*rowSums(Vv)))^(1/(1-q))
     }
   }
