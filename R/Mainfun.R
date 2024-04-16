@@ -87,8 +87,6 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
       stop("Error: There exists NA values in species_data.")
   }
   
-  func_data[which(func_data==0,arr.ind = TRUE)]<-NA
-  
   if (is.vector(func_data)) func_data <- matrix(func_data,nrow=1)
   
   
@@ -245,8 +243,6 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
     else if(sum(is.na(species_data))!=0)
       stop("Error: There exists NA values in species_data.")
   }
-  
-  func_data[which(func_data==0,arr.ind = TRUE)]<-NA
   
   if (is.vector(func_data)) func_data <- matrix(func_data,nrow=1)
   
