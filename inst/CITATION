@@ -1,0 +1,30 @@
+bibentry(
+		 bibtype = 'Article',
+		 title  = 'Hill-Chao numbers allow decomposing gamma-multifunctionality into alpha and beta components.',
+     author = c(person("Anne Chao"),
+                person("Chun-Huo Chiu"),
+  		          person("Kai-Hsiang Hu"),
+  		          person("Fons van der Plas"),
+  		          person("Marc W. Cadotte"),
+    	          person("Oliver Mitesser"),
+                person("Simon Thorn"),
+                person("Akira S. Mori"),
+                person("Michael Scherer-Lorenzen"),
+                person("Nico Eisenhauer"),
+                person("Claus Bässler"),
+                person("Benjamin M. Delory"),
+                person("Heike Feldhaar"),
+                person("Andreas Fichtner"),
+                person("Torsten Hothorn"),
+                person("Marcell K. Peters"),
+                person("Kerstin Pierick"),
+                person("Goddert von Oheimb"),
+                person("Jörg Müller")),
+		 journal = 'Ecology Letters',
+		 year    = '2023',
+		 doi     = '10.1111/ele.14336',
+		 header  = "To cite MF.beta4 in publications use:",
+		 textVersion = paste('Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2023). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. Accepted, Ecology Letters. doi:10.1111/ele.14336.')
+)
+
+
