@@ -5,6 +5,7 @@ date: "`r Sys.Date()`"
 output:
   html_document:
     df_print: paged
+  pdf_document: default
 vignette: "%\\VignetteIndexEntry{A Quick Introduction to MF.beta4 via Examples} %\\VignetteEngine{knitr::rmarkdown}
   %\\VignetteEncoding{UTF-8}\n"
 ---
@@ -74,7 +75,7 @@ The `MF.beta4` package can be downloaded from CRAN or Github [MF.beta4_github](h
 
 ```{r eval=FALSE}
 ## install MF.beta4 package from CRAN
-# install.packages("MF.beta4")  
+install.packages("MF.beta4")
 
 ## install the latest version from github
 install.packages('devtools')
@@ -267,7 +268,7 @@ output5 = MF2_multiple(func_data = forest_function_data_normalized_3plots[,6:32]
                        by_group = "country", by_pair = FALSE)
 ```
 
-```{r include=FALSE}
+```{r echo=FALSE}
 data("forest_function_data_raw")
 data("forest_biodiversity_data")
 forest_function_data_raw_3plots <- forest_function_data_raw[c(1:3,29:31,67:69,103:105,
@@ -282,8 +283,9 @@ output5 = MF2_multiple(func_data = forest_function_data_normalized_3plots[,6:32]
                        species_data = forest_biodiversity_data_3plots,
                        weight = 1,
                        by_group = "country", by_pair = FALSE)
-output5
+head(as.data.frame(output5), 10)
 ```
+
 
 
 ## Assessing BEF Relationships by MFggplot()
@@ -335,6 +337,9 @@ figure_LMM$corr_corrected$ALL
 ```
 
 
+NOTE: Because the total number of pair plots is huge, it is very time consuming to obtain the BEF graphical relationships from running the above code for alpha/beta/gamma scales. Users can use partial data to quickly view the graphical results; see below for an example. 
+
+
 ### Multifunctionality by all plots
 
 Run the following code to obtain the BEF graphical relationships when correlations are not corrected for. (Only use the partial data of `forest_function_data_raw`, that contains only the first three plots in each country.)
@@ -355,9 +360,6 @@ The BEF graphical relationships when correlations are corrected for are shown be
 figure_all_plots$corr_corrected$ALL
 ```
 
-
-
-NOTE: Because the total number of pair plots is huge, it is very time consuming to obtain the BEF graphical relationships from running the above code for alpha/beta/gamma scales. Users can use partial data to quickly view the graphical results; see below for an example. 
 
 
 ## Computing multifunctionality in a single ecosystem for partial data
