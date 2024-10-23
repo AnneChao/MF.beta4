@@ -205,6 +205,7 @@ When `species_data = NULL` (i.e., biodiversity data are not provided), `MF2_mult
 Due to sparse data in Finland (with richness levels of only one or two species in 90% of plots), data from Finland are excluded from following computation. Run the following code to view the first ten rows of the output:
 
 ```{r eval=FALSE}
+library(dplyr)
 data("forest_function_data_normalized")
 data("forest_biodiversity_data")
 forest_function_data_normalized <- forest_function_data_normalized %>% filter(country != "FIN")
