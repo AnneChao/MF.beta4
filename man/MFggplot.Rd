@@ -13,7 +13,7 @@ For output obtained from \code{MF1_single}, if BEF relationships are desired wit
 \item{model}{specifying the fitting model, \code{model = "lm"} for linear model; \code{model = "LMM.intercept"},
 \code{"LMM.slope"} and \code{"LMM.both"} for linear mixed models with random effects for intercepts, slopes, and both, respectively.
 Default is \code{model = "LMM.both"}. \cr
-If \code{output} is obtained from \code{MF2_multiple} with \code{by_pair = "FALSE"}, \code{model} can only set as \code{"lm"}.}
+If \code{output} is obtained from \code{MF2_multiple} with \code{by_pair = FALSE}, \code{model} can only set as \code{"lm"}.}
 
 \item{caption}{caption that will be shown in the BEF plots; \code{caption = "slope"} to show the estimated slopes in each plot,
 or \code{caption = "R.squared"} to show the ordinary R-squared for linear models or estimated marginal and conditional R-squared for linear mixed models in each plot.
@@ -21,8 +21,8 @@ Default is \code{caption = "slope"}.}
 
 \item{by_group}{the column name of the stratifying variable that is used to group data for model fitting. For example, if \code{by_group = "country"}, then model will be fitted within each country. Default is \code{NULL}. \cr
 It is required if a linear mixed model is selected in the \code{model}. \cr
-If \code{output} is obtained from \code{MF2_multiple} with \code{by_pair = "TRUE"}, the \code{by_group} setting must be the same as that set in \code{MF2_multiple}. \cr
-If \code{output} is obtained from \code{MF2_multiple} with \code{by_pair = "FALSE"}, the \code{by_group} should be \code{NULL}. Because the observations is not large enough to fit model in each group.}
+If \code{output} is obtained from \code{MF2_multiple} with \code{by_pair = TRUE}, the \code{by_group} setting must be the same as that set in \code{MF2_multiple}. \cr
+If \code{output} is obtained from \code{MF2_multiple} with \code{by_pair = FALSE}, the \code{by_group} should be \code{NULL}. Because the observations is not large enough to fit model in each group.}
 }
 \value{
 For an \code{MF1_single} object, this function returns a figure that plots the BEF relationship between multifunctionality of

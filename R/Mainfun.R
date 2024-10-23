@@ -168,9 +168,9 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #' In the latter case, the length of \code{weight} must be equal to the number of functions. Default is \code{weight = 1}, which means equal weight and weight = 1 for all ecosystem functions.
 #' @param q a numerical vector specifying the multifunctionality and diversity orders. Default is q = 0, 1 and 2.
 #' @param by_group the column name of the stratifying variable that is used to group data for performing decomposition.
-#' For example, if \code{by_group = "country"}, then multifunctionality decomposition is performed for any pair of plots selected within a country. \cr
+#' For example, if \code{by_group = "country"} and \code{by_pair = TRUE}, then multifunctionality decomposition is performed for any pair of plots selected within a country. \cr
 #' The \code{by_group} setting must be the same as that set in \code{function_normalization}. Default is \code{NULL}.
-#' @param by_pair whether to calculate multifunctionality by pairs or not. Default is \code{TRUE}. 
+#' @param by_pair select whether to perform multifunctionality decomposition for all pairs of ecosystems or not. Choose \code{TRUE} or \code{FALSE}. For \code{TRUE}, alpha/beta/gamma multifunctionality will be computed for all pairs of ecosystems/plots; for \code{FALSE}, alpha/beta/gamma multifunctionality will be computed for multiple ecosystems (i.e, more than two ecosystems). Default is \code{TRUE}. 
 #'
 #' @import reshape2
 #'

@@ -7,7 +7,7 @@
 \code{MF.beta4} is an R package for measuring ecosystem multifunctionality and assessing BEF relationships. The measures are illustrated by using ecosystem function and biodiversity data collected in a total of 209 plots in six European countries (the FunDivEUROPE dataset). All data are available from the Dryad repository; see Ratcliffe et al. (2017a, b) and Scherer-Lorenzen et al. (2023) for data details. The software was originally developed for the Beta4 project (Müller et al. 2022) on the effect of enhancing the beta diversity between forest patches on ecosystem multifunctionality and forest resilience across spatial scales.    \cr
 
 
-Based on a framework of Hill-Chao numbers of orders q = 0, 1 and 2, \code{MF.beta4} features the following multifunctionality measures for a single and multiple ecosystems; see Chao et al. (2023) for pertinent methodology and decomposition theory. \cr
+Based on a framework of Hill-Chao numbers of orders q = 0, 1 and 2, \code{MF.beta4} features the following multifunctionality measures for a single and multiple ecosystems; see Chao et al. (2024) for pertinent methodology and decomposition theory. \cr
 
 (1)	Multifunctionality measures in a single ecosystem: \code{MF.beta4} computes a class of weighted multifunctionality measures for given function weights. Multifunctionality measures that correct for strong correlations between ecosystem functions to avoid redundancy are also provided. \cr
 
@@ -35,9 +35,9 @@ Maintainer: Anne Chao <chao@stat.nthu.edu.tw>
 
 \references{
 
-Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2023). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. To appear in Ecology Letters.  
+Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2024). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. Ecology Letters. 27, e14336. Available from: https://doi.org/10.1111/ele.14336 
 
-Müller, J., Mitesser, O. Cadotte, M. W., van der Plas, F., Mori, A, Ammer, C., Eisenhauer N. (2023). Enhancing the structural diversity between forest patches - a concept and real-world experiment to study biodiversity and multifunctionality across spatial scales. Global Change Biology, 29, 1437-1450.
+Müller, J., Mitesser, O. Cadotte, M. W., van der Plas, F., Mori, A, Ammer, C., Eisenhauer N. (2022). Enhancing the structural diversity between forest patches - a concept and real-world experiment to study biodiversity and multifunctionality across spatial scales. Global Change Biology, 29, 1437-1450.
 
 Ratcliffe, S. Wirth, C., Jucker, T. van der Plas, F., Scherer-Lorenzen, M. Verheyen, K. et al. (2017a). Biodiversity and ecosystem functioning relations in European forests depend on environmental context. Ecology Letters, 20, 1414-1426.
 

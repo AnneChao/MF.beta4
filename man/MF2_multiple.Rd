@@ -27,10 +27,10 @@ In the latter case, the length of \code{weight} must be equal to the number of f
 \item{q}{a numerical vector specifying the multifunctionality and diversity orders. Default is q = 0, 1 and 2.}
 
 \item{by_group}{the column name of the stratifying variable that is used to group data for performing decomposition.
-For example, if \code{by_group = "country"}, then multifunctionality decomposition is performed for any pair of plots selected within a country. \cr
+For example, if \code{by_group = "country"} and \code{by_pair = TRUE}, then multifunctionality decomposition is performed for any pair of plots selected within a country. \cr
 The \code{by_group} setting must be the same as that set in \code{function_normalization}. Default is \code{NULL}.}
 
-\item{by_pair}{whether to calculate multifunctionality by pairs or not. Default is \code{TRUE}.}
+\item{by_pair}{select whether to perform multifunctionality decomposition for all pairs of ecosystems or not. Choose \code{TRUE} or \code{FALSE}. For \code{TRUE}, alpha/beta/gamma multifunctionality will be computed for all pairs of ecosystems/plots; for \code{FALSE}, alpha/beta/gamma multifunctionality will be computed for multiple ecosystems (i.e, more than two ecosystems). Default is \code{TRUE}.}
 }
 \value{
 a data.frame with columns "plotID" (combinations of plot pairs, if calculating not by pairs, then there is no such column), "Order.q" , "Type" (corr_uncorrected or corr_corrected) , "Scale" (gamma, alpha or beta) and "qMF" (multifunctionality of order q).

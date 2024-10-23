@@ -21,10 +21,10 @@ bibentry(
                 person("Goddert von Oheimb"),
                 person("Jörg Müller")),
 		 journal = 'Ecology Letters',
-		 year    = '2023',
+		 year    = '2024',
 		 doi     = '10.1111/ele.14336',
 		 header  = "To cite MF.beta4 in publications use:",
-		 textVersion = paste('Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2023). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. Accepted, Ecology Letters. doi:10.1111/ele.14336.')
+		 textVersion = paste('Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2024). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. Ecology Letters. 27, e14336. Available from: https://doi.org/10.1111/ele.14336 ')
 )
 
 
