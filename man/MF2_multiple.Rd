@@ -53,7 +53,6 @@ data("forest_function_data_normalized")
 data("forest_biodiversity_data")
 forest_function_data_normalized <- filter(forest_function_data_normalized, country != "FIN")
 forest_biodiversity_data <- forest_biodiversity_data[-(1:48),]
-forest_biodiversity_data <- forest_biodiversity_data \%>\% mutate(country = substr(plotID, 1, 3))
 
 MF2_multiple(func_data = forest_function_data_normalized[,6:32],
              species_data = forest_biodiversity_data,
@@ -75,8 +74,6 @@ GER_ITA_forest_function_normalized <- function_normalization(data = GER_ITA_fore
                                                              negative = c("soil_cn_ff_10","wue"),
                                                              by_group = "country")
 GER_ITA_forest_biodiversity <- forest_biodiversity_data[c(49:82,181:229),]
-GER_ITA_forest_biodiversity <- GER_ITA_forest_biodiversity \%>\% 
-                                                    mutate(country = substr(plotID, 1, 3))
 
 MF2_multiple(func_data = GER_ITA_forest_function_normalized[,6:32],
              species_data = GER_ITA_forest_biodiversity,

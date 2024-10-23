@@ -33,7 +33,7 @@ from the Dryad repository; see Ratcliffe et al. (2017b) and Scherer-Lorenzen et 
 of enhancing the beta diversity between forest patches on ecosystem multifunctionality and forest
 resilience across spatial scales.
 
-Based on a framework of Hill-Chao numbers of orders q = 0, 1 and 2, `MF.beta4` features the following multifunctionality measures for a single and multiple ecosystems; see Chao et al. (2023) for
+Based on a framework of Hill-Chao numbers of orders q = 0, 1 and 2, `MF.beta4` features the following multifunctionality measures for a single and multiple ecosystems; see Chao et al. (2024) for
 pertinent methodology and decomposition theory.
 
 
@@ -60,7 +60,7 @@ assessing biodiversity-ecosystem functioning (BEF) relationships across scales.
 If you publish your work based on the results from the MF.beta4 package, you should make references to the
 following methodology paper and the R package.
 
-<li> Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2023). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. To appear in <i>Ecology Letters</i>.</li>
+<li> Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2024). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. <i>Ecology Letters</i>. 27, e14336. Available from: https://doi.org/10.1111/ele.14336 </li>
 \
 <li> Chao, A., Liu, C. Y., and Hu, K. H. (2023). MF.beta4 package: measuring ecosystem multifunctionality and assessing BEF relationships. Available from CRAN. </li>
 
@@ -159,7 +159,7 @@ This normalized dataset is exactly the same as the dataset `forest_function_data
 
 #### Biodiversity data
 
-The `forest_biodiversity_data` consist of three columns: the "plotID" column includes the name of ecosystems/plots, the "species" column includes species names, and the "abundance" column includes the corresponding species abundance (basal area as a proxy of species abundance),in addition to row and column names; see Scherer-Lorenzen et al. (2023) for the original data. Because missing values of “basal area” in the original dataset were imputed by the mean of the same species within the country, and basal areas were combined for two species (Betula pendula and Betula pubescens), the dataset provided with the package is slightly different from the original dataset.
+The `forest_biodiversity_data` consist of four columns: the "plotID" column includes the name of ecosystems/plots, the "species" column includes species names, the "abundance" column includes the corresponding species abundance (basal area as a proxy of species abundance), and the “country” column includes the corresponding stratifying variable, in addition to row and column names; see Scherer-Lorenzen et al. (2023) for the original data. Because missing values of “basal area” in the original dataset were imputed by the mean of the same species within the country, and basal areas were combined for two species (Betula pendula and Betula pubescens), the dataset provided with the package is slightly different from the original dataset.
 
 Run the following code to view the first ten rows of the biodiversity data:
 
@@ -184,7 +184,7 @@ Run the following code to view the first ten rows of the output:
 ```{r echo=TRUE}
 data("forest_function_data_normalized")
 data("forest_biodiversity_data")
-output1 <- MF1_single(func_data = forest_function_data_normalized[,6:31],weight = 1,
+output1 <- MF1_single(func_data = forest_function_data_normalized[,6:31], weight = 1,
            species_data = forest_biodiversity_data)
 ```
 
@@ -198,9 +198,9 @@ The above output includes the ID of plot (`plotID`), `Type` (corr_uncorrected an
 
 ## Computing alpha, beta and gamma multifunctionality for any pair of plots within a country
 
-`MF2_multiple()` computes alpha, beta and gamma multifuctionality measures of orders q = 0, 1 and 2 for given function weights in multiple ecosystems separately for two cases: (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for. The decomposition of mltifunctionality measure of order q can be based on all pairs of plots or all plots separately within each country. The alpha scale refers to individual plots, whereas the gamma scale refers to the two collective plots. 
+`MF2_multiple()` computes alpha, beta and gamma multifuctionality measures of orders q = 0, 1 and 2 for given function weights in multiple ecosystems separately for two cases: (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for. The decomposition of multifunctionality measure of order q can be based on all pairs of plots or all plots separately within each country. The alpha scale refers to individual plots, whereas the gamma scale refers to the two collective plots. 
 
-When `species_data = NULL` (i.e., biodiversity data are not provided), `MF2_multiple` computes alpha, beta, and gamma multifunctionality values for q = 0, 1 and 2 for all pairs of plots within each country. When biodiversity data are specified (`species_data = forest_biodiversity_data`), tree species diversity values for q = 0, 1 and 2 are also computed.
+When `species_data = NULL` (i.e., biodiversity data are not provided), `MF2_multiple` computes alpha, beta, and gamma multifunctionality values for q = 0, 1 and 2 for all pairs of plots within each country. (with default `by_pair = TRUE`) When biodiversity data are specified (`species_data = forest_biodiversity_data`), tree species diversity values for q = 0, 1 and 2 are also computed.
 
 Due to sparse data in Finland (with richness levels of only one or two species in 90% of plots), data from Finland are excluded from following computation. Run the following code to view the first ten rows of the output:
 
@@ -247,7 +247,7 @@ NOTE: Because the total number of pair plots is huge, it is very time consuming 
 
 ## Computing alpha, beta and gamma multifunctionality for all plots within a country
 
-As the introduction of `MF2_multiple()` described above, this function can also calculate the decomposition of mltifunctionality measure of order q based on all plots separately within each country. 
+As the introduction of `MF2_multiple()` described above, this function can also calculate the decomposition of multifunctionality measure of order q based on all plots separately within each country. (with `by_group = "country"` and `by_pair = FALSE`)
 
 Following use the the partial data of `forest_function_data_raw`, which contains the first three plots in each country, to calculate the alpha, beta and gamma multifunctionality for all three plots within a country. 
 
@@ -314,7 +314,7 @@ MFggplot(output1, model = "LMM.both", by_group = "country", caption = "slope")
 For an <code>MF2_multiple</code> object of given individual function weights, function `MFggplot` plots the BEF relationship between alpha/beta/gamma multifunctionality by pairs of plots or all plots of order q (= 0, 1 and 2) and the corresponding alpha/beta/gamma species diversity of the same order q for two cases: (i) correlations between functions are not corrected for. (ii) correlations between functions are corrected. The fitted lines for the chosen model are also shown in the figure. 
 
 
-By default, the BEF relationship for each scale is modeled using a linear mixed model with random slopes and random intercepts for each country. When multifunctionality in the output of `MF2_multiple` is calculated by all plots, not by pairs, only the linear model can be fitted. 
+By default, the BEF relationship for each scale is modeled using a linear mixed model with random slopes and random intercepts for each country. When multifunctionality in the output of `MF2_multiple` is calculated by all plots, not by pairs (`by_pair = FALSE`), only the linear model can be fitted. 
 
 ### Multifunctionality by pairs of plots
 
@@ -473,14 +473,13 @@ figure_LMM_GER_ITA$corr_corrected$ALL
 ## References
 
 
-<li> Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2023). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. To appear in <i>Ecology Letters</i>.</li>
+<li> Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2024). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. <i>Ecology Letters</i>. 27, e14336. Available from: https://doi.org/10.1111/ele.14336 </li>
 \
 <li> Müller, J., Mitesser, O. Cadotte, M. W., van der Plas, F., Mori, A, Ammer, C. . . . , Eisenhauer N.
-(2023). Enhancing the structural diversity between forest patches – a concept and real-world experiment to study biodiversity and multifunctionality across spatial scales. Global Change Biology,
-29, 1437–1450.</li>
+(2022). Enhancing the structural diversity between forest patches – a concept and real-world experiment to study biodiversity and multifunctionality across spatial scales. <i>Global Change Biology</i>, 29, 1437–1450.</li>
 \
 <li> Ratcliffe, S., Wirth, C., Jucker, T., van der Plas, F., Scherer-Lorenzen, M., Verheyen, K., et al. (2017a).
-Biodiversity and ecosystem functioning relations in European forests depend on environmental context. Ecology Letters, 20, 1414–1426.</li>
+Biodiversity and ecosystem functioning relations in European forests depend on environmental context. <i>Ecology Letters</i>, 20, 1414–1426.</li>
 \
 <li> Ratcliffe, S., Wirth, C., Jucker, T., van der Plas, F., Scherer-Lorenzen, M., Verheyen, K., et al. (2017b).
 Data for Biodiversity and ecosystem functioning relations in European forests depend on environmental context. <a href= "https://doi.org/10.6084/m9.figshare.5368846.v1"> https://doi.org/10.6084/m9.figshare.5368846.v1 </a></li>
