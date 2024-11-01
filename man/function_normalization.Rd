@@ -28,7 +28,7 @@ a data.frame with all values in functions (specified in \code{fun_cols}) being r
 \description{
 \code{function_normalization} transforms raw function values to values between 0 and 1. For positive functionality,
 ecosystems with the highest value in the raw function data are transformed to the maximal value of 1, and those with the lowest raw value are transformed to the minimum value of 0.
-Because the value "0" always implies absent functions, if the lowest raw value is not 0, the transformed 0 from this non-zero raw value will be replaced by a very small number,e.g., 10^(-5). 
+Because the value "0" always implies absent functions, if the lowest raw value is not 0, the transformed 0 from this non-zero raw value will be replaced by a very small number, e.g., 10^(-5). 
 In a similar manner, for negative functionality, if the highest raw value is not 0, the transformed 0 will also be replaced by a very small number, e.g., 10^(-5).
 These replacements will not affect any numerical computations but will help indicate that the transformed values represent functions that should be regarded as "present" ones.
 Thus, present or absent functions can be clearly distinguished in the transformed data, and the information on presence/absence of functions is required in the decomposition of multifunctionality

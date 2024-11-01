@@ -24,14 +24,15 @@ When \code{species_data} is not \code{NULL}, the data.frame will include an addi
 }
 \description{
 \code{MF1_single} computes multifunctionality measures of orders q = 0, 1 and 2 for given function weights in a single ecosystem separately for two cases
-(i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for.
+(i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for. Species diversity of orders q = 0, 1, and 2 will also
+be computed if species abundance data are provided.
 }
 \examples{
 
 library(dplyr)
 
 \donttest{
-### Use data from six countries
+### Use data from the entire set of 209 plots in six countries
 
 data("forest_function_data_normalized")
 data("forest_biodiversity_data")

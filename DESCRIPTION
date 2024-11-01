@@ -21,13 +21,13 @@ BugReports: https://github.com/AnneChao/MF.beta4/issues
 Description: Provide simple functions to (i) compute a class of 
   multi-functionality measures for a single ecosystem for given 
   function weights, (ii) decompose gamma multi-functionality 
-  for multiple ecosystems into a within-ecosystem component 
-  (alpha multi-functionality) and an among-ecosystem component 
-  (beta multi-functionality). In each case, the correlation 
-  between functions can be corrected for. Based on biodiversity 
-  and ecosystem function data, this software also facilitates 
-  graphics for assessing biodiversity-ecosystem functioning 
-  relationships across scales. 
+  for pairs of ecosystems and K ecosystems (K can be greater than 2) 
+  into a within-ecosystem component (alpha multi-functionality) 
+  and an among-ecosystem component (beta multi-functionality). 
+  In each case, the correlation between functions can be corrected for. 
+  Based on biodiversity and ecosystem function data, this software 
+  also facilitates graphics for assessing biodiversity-ecosystem 
+  functioning relationships across scales. 
 License: GPL (>= 3)
 Depends: R (>= 4.0)
 Imports: broom,

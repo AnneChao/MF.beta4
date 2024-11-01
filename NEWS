@@ -11,4 +11,4 @@
 - Modify existence detection.
 
 # MF.beta4 1.1.0
-- Add overall beta decomposition for more than three assemblages data in the function "MF2_multiple".
+- Add "by_group" setting for beta decomposition in the function "MF2_multiple" to compute alpha/beta/gamma multifunctionality (i.e, more than two ecosystems).

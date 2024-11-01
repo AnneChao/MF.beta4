@@ -30,7 +30,7 @@ In the latter case, the length of \code{weight} must be equal to the number of f
 For example, if \code{by_group = "country"} and \code{by_pair = TRUE}, then multifunctionality decomposition is performed for any pair of plots selected within a country. \cr
 The \code{by_group} setting must be the same as that set in \code{function_normalization}. Default is \code{NULL}.}
 
-\item{by_pair}{select whether to perform multifunctionality decomposition for all pairs of ecosystems or not. Choose \code{TRUE} or \code{FALSE}. For \code{TRUE}, alpha/beta/gamma multifunctionality will be computed for all pairs of ecosystems/plots; for \code{FALSE}, alpha/beta/gamma multifunctionality will be computed for multiple ecosystems (i.e, more than two ecosystems). Default is \code{TRUE}.}
+\item{by_pair}{a logical variable specifying whether to perform multifunctionality decomposition for all pairs of ecosystems or not. If \code{by_pair = TRUE}, alpha/beta/gamma multifunctionality will be computed for all pairs of ecosystems/plots in the input data; if \code{by_pair = FALSE}, alpha/beta/gamma multifunctionality will be computed for multiple ecosystems (i.e, more than two ecosystems) in the input data. Default is \code{TRUE}.}
 }
 \value{
 a data.frame with columns "plotID" (combinations of plot pairs, if calculating not by pairs, then there is no such column), "Order.q" , "Type" (corr_uncorrected or corr_corrected) , "Scale" (gamma, alpha or beta) and "qMF" (multifunctionality of order q).
@@ -40,14 +40,16 @@ the data.frame will show an additional column contain "Species.diversity" in the
 }
 \description{
 \code{MF2_multiple} computes alpha, beta and gamma multifuctionality measures of orders q = 0, 1 and 2 for given function weights in multiple ecosystems separately for two cases
-(i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for.
+(i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for. Species alpha, beta and gamma diversity of orders q = 0, 1, and 2 will also
+be computed if species abundance data are provided.
 }
 \examples{
 
 library(dplyr)
 
 \donttest{
-### Use data from five countries (data in Finland are excluded)
+### Use data from plots in five countries (data in Finland are excluded) to decompose MF 
+### for all pairs of plots
 
 data("forest_function_data_normalized")
 data("forest_biodiversity_data")
@@ -64,6 +66,7 @@ MF2_multiple(func_data = forest_function_data_normalized[,6:32],
 
 ### Use partial data to quickly obtain output 
 ### (Take the first 18 plots in Germany and the last 18 plots in Italy)
+### BF decomposition for all pairs of plots
 
 data("forest_function_data_raw")
 data("forest_biodiversity_data")
@@ -81,7 +84,7 @@ MF2_multiple(func_data = GER_ITA_forest_function_normalized[,6:32],
              by_group = "country")
 
 
-### Use partial data to calculate multifunctionality by all plots in country, not by pairs 
+### Use partial data to decompose multifunctionality based on 3 plots in each country, not by pairs 
 ### (Take the first 3 plots in each country)              
              
 data("forest_function_data_raw")

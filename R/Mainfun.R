@@ -1,7 +1,8 @@
 #' multifunctionality measures for a single ecosystem
 #'
 #' \code{MF1_single} computes multifunctionality measures of orders q = 0, 1 and 2 for given function weights in a single ecosystem separately for two cases
-#' (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for.
+#' (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for. Species diversity of orders q = 0, 1, and 2 will also
+#' be computed if species abundance data are provided.
 #'
 #' @param func_data ecosystem function data should be input as a data.frame (ecosystems by functions). All function values must be normalized between 0 and 1.\cr
 #' The row names of \code{func_data} should be set the same as the names of plotID specified in \code{species_data} if \code{species_data} is not \code{NULL}.
@@ -31,7 +32,7 @@
 #' library(dplyr)
 #' 
 #' \donttest{
-#' ### Use data from six countries
+#' ### Use data from the entire set of 209 plots in six countries
 #' 
 #' data("forest_function_data_normalized")
 #' data("forest_biodiversity_data")
@@ -156,7 +157,8 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #' multifunctionality measures for multiple ecosystems
 #'
 #' \code{MF2_multiple} computes alpha, beta and gamma multifuctionality measures of orders q = 0, 1 and 2 for given function weights in multiple ecosystems separately for two cases
-#' (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for.
+#' (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for. Species alpha, beta and gamma diversity of orders q = 0, 1, and 2 will also
+#' be computed if species abundance data are provided.
 #'
 #'
 #' @param func_data ecosystem function data should be input as a data.frame (ecosystems by functions for multiple ecosystems). All function values must be normalized between 0 and 1. \cr
@@ -170,7 +172,7 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #' @param by_group the column name of the stratifying variable that is used to group data for performing decomposition.
 #' For example, if \code{by_group = "country"} and \code{by_pair = TRUE}, then multifunctionality decomposition is performed for any pair of plots selected within a country. \cr
 #' The \code{by_group} setting must be the same as that set in \code{function_normalization}. Default is \code{NULL}.
-#' @param by_pair select whether to perform multifunctionality decomposition for all pairs of ecosystems or not. Choose \code{TRUE} or \code{FALSE}. For \code{TRUE}, alpha/beta/gamma multifunctionality will be computed for all pairs of ecosystems/plots; for \code{FALSE}, alpha/beta/gamma multifunctionality will be computed for multiple ecosystems (i.e, more than two ecosystems). Default is \code{TRUE}. 
+#' @param by_pair a logical variable specifying whether to perform multifunctionality decomposition for all pairs of ecosystems or not. If \code{by_pair = TRUE}, alpha/beta/gamma multifunctionality will be computed for all pairs of ecosystems/plots in the input data; if \code{by_pair = FALSE}, alpha/beta/gamma multifunctionality will be computed for multiple ecosystems (i.e, more than two ecosystems) in the input data. Default is \code{TRUE}. 
 #'
 #' @import reshape2
 #'
@@ -184,7 +186,8 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #' library(dplyr)
 #' 
 #' \donttest{
-#' ### Use data from five countries (data in Finland are excluded)
+#' ### Use data from plots in five countries (data in Finland are excluded) to decompose MF 
+#' ### for all pairs of plots
 #' 
 #' data("forest_function_data_normalized")
 #' data("forest_biodiversity_data")
@@ -201,6 +204,7 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #' 
 #' ### Use partial data to quickly obtain output 
 #' ### (Take the first 18 plots in Germany and the last 18 plots in Italy)
+#' ### BF decomposition for all pairs of plots
 #' 
 #' data("forest_function_data_raw")
 #' data("forest_biodiversity_data")
@@ -218,7 +222,7 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #'              by_group = "country")
 #' 
 #' 
-#' ### Use partial data to calculate multifunctionality by all plots in country, not by pairs 
+#' ### Use partial data to decompose multifunctionality based on 3 plots in each country, not by pairs 
 #' ### (Take the first 3 plots in each country)              
 #'              
 #' data("forest_function_data_raw")
@@ -698,7 +702,7 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
 #'
 #' \code{function_normalization} transforms raw function values to values between 0 and 1. For positive functionality,
 #' ecosystems with the highest value in the raw function data are transformed to the maximal value of 1, and those with the lowest raw value are transformed to the minimum value of 0.
-#' Because the value "0" always implies absent functions, if the lowest raw value is not 0, the transformed 0 from this non-zero raw value will be replaced by a very small number,e.g., 10^(-5). 
+#' Because the value "0" always implies absent functions, if the lowest raw value is not 0, the transformed 0 from this non-zero raw value will be replaced by a very small number, e.g., 10^(-5). 
 #' In a similar manner, for negative functionality, if the highest raw value is not 0, the transformed 0 will also be replaced by a very small number, e.g., 10^(-5).
 #' These replacements will not affect any numerical computations but will help indicate that the transformed values represent functions that should be regarded as "present" ones.
 #' Thus, present or absent functions can be clearly distinguished in the transformed data, and the information on presence/absence of functions is required in the decomposition of multifunctionality

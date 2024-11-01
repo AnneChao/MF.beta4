@@ -1,11 +1,12 @@
 ---
 title: "An Introduction to MF.beta4 via Examples"
-author: "Anne Chao, Chun-Yu Liu, K. H. Hu"
-date: "`r Sys.Date()`"
+author: "Anne Chao, Chun-Yu Liu, and K. H. Hu"
+# date: "`r Sys.Date()`"
+date: "Latest version 1.1.0 (Nov. 1, 2024)"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
 vignette: "%\\VignetteIndexEntry{A Quick Introduction to MF.beta4 via Examples} %\\VignetteEngine{knitr::rmarkdown}
   %\\VignetteEncoding{UTF-8}\n"
 ---
@@ -24,8 +25,10 @@ library(dplyr)
 #load("EF_multiple.rda")
 ```
 
-<font color=#FF6600>
-</font>
+
+\textcolor{red}{The Latest Update in Nov. 1, 2024: In earlier versions, multifunctionality decomposition (alpha, beta and gamma) was performed only for pairs of plots/ecosystems. In the updated version, we have added a logical argument} "by_pair" \textcolor{red}{in the main function} "MF2_multiple" \textcolor{red}{to specify whether multifunctionality decomposition will be performed for all pairs of ecosystems or not.  If} "by_pair = TRUE"\textcolor{red}{, alpha/beta/gamma multifunctionality will be computed for all pairs of ecosystems/plots in the input data; if }"by_pair =  FALSE"\textcolor{red}{, alpha/beta/gamma multifunctionality will be computed for K plots (i.e., K can be greater than two) when data for K plots are provided in the input data. Default is }"by_pair = TRUE".
+
+\
 
 `MF.beta4` is an R package for measuring ecosystem multifunctionality and assessing BEF relationships. The measures are illustrated by using ecosystem function and biodiversity data collected in
 a total of 209 plots in six European countries (the FunDivEUROPE dataset). All data are available
@@ -40,28 +43,20 @@ pertinent methodology and decomposition theory.
 
 (1) <u>Multifunctionality measures in a single ecosystem:</u>  
 
-`MF.beta4` computes a class of weighted
-multifunctionality measures for given function weights. Multifunctionality measures that correct
-for strong correlations between ecosystem functions to avoid redundancy are also provided.
+`MF.beta4` computes a class of weighted multifunctionality measures for given function weights. Multifunctionality measures that correct for strong correlations between ecosystem functions to avoid redundancy are also provided. When biodiversity data are available, `MF.beta4` also provides graphics for assessing biodiversity-ecosystem functioning (BEF) relationships between within-ecosystem multifunctionality and the species diversity for orders q = 0, 1, and 2.
 
 
 (2) <u>Multifunctionality measures in multiple ecosystems:</u>
 
-For given function weights, `MF.beta4` computes the gamma multifunctionality of pooled ecosystems, the within-ecosystem component (alpha
-multifunctionality) and the among-ecosystem component (beta multifunctionality). The correlation between functions can also be corrected for.
+For given function weights, `MF.beta4` computes the gamma multifunctionality of pooled ecosystems, the within-ecosystem component (alpha multifunctionality) and the among-ecosystem component (beta multifunctionality). The correlation between functions can also be corrected for. When biodiversity data are available, `MF.beta4` also provides graphics for assessing biodiversity-ecosystem functioning (BEF) relationships between gamma/alpha/beta multifunctionality and the species diversity for orders q = 0, 1, and 2 for all pairs of ecosystems/plots or for multiple ecosystems/plots.
 
-\
-
-Based on biodiversity and function data from ecosystems, this package also provides graphics for
-assessing biodiversity-ecosystem functioning (BEF) relationships across scales.
-
-## How to cite
+## HOW TO CITE
 
 If you publish your work based on the results from the MF.beta4 package, you should make references to the
 following methodology paper and the R package.
 
-<li> Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2024). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. <i>Ecology Letters</i>. 27, e14336. Available from: https://doi.org/10.1111/ele.14336 </li>
-\
+<li> Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2024). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. <i>Ecology Letters</i>, 27, e14336. Available from: https://doi.org/10.1111/ele.14336 </li>
+
 <li> Chao, A., Liu, C. Y., and Hu, K. H. (2023). MF.beta4 package: measuring ecosystem multifunctionality and assessing BEF relationships. Available from CRAN. </li>
 
 
@@ -69,7 +64,7 @@ following methodology paper and the R package.
 - Required: [R](https://cran.r-project.org/)
 - Suggested: [RStudio IDE](https://posit.co/products/open-source/rstudio/#Desktop)
 
-## HOW TO RUN MF.beta4:
+## HOW TO DOWNLOAD MF.beta4:
 
 The `MF.beta4` package can be downloaded from CRAN or Github [MF.beta4_github](https://github.com/AnneChao/MF.beta4) using the following commands. For a first-time installation, an additional visualization extension package (`ggplot2`) must be installed and loaded.
 
@@ -86,6 +81,7 @@ install_github("AnneChao/MF.beta4")
 library(MF.beta4)
 ```
 
+## FOUR MAIN FUNCTIONS:
 
 This package includes four functions, as listed below with default arguments. See package manual for the detailed description of each argument.  
 
@@ -95,13 +91,13 @@ This package includes four functions, as listed below with default arguments. Se
 function_normalization(data, fun_cols = 1:ncol(data), negative = NULL, by_group = NULL) 
 ```
 
-- **MF1_single**: computes multifunctionality measures of orders q = 0, 1 and 2 for given function weights in a single ecosystem separately for two cases: (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for.
+- **MF1_single**: computes multifunctionality measures of orders q = 0, 1 and 2 for given function weights in a single ecosystem for two cases: (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for.
 
 ```{r eval=FALSE}
 MF1_single(func_data, species_data = NULL, weight = 1, q = c(0, 1, 2))
 ```
 
-- **MF2_multiple**:  computes alpha, beta and gamma multifuctionality measures of orders q = 0, 1 and 2 for given function weights in multiple ecosystems separately for two cases (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for.
+- **MF2_multiple**:  if `by_pair = TRUE`, this function computes alpha, beta and gamma multifuctionality measures of orders q = 0, 1 and 2 for given function weights for all pairs of ecosystems in the input data; if `by_pair = FALSE`, multifunctionality decomposition (alpha/beta/gamma) will be performed for K plots (K can be greater than two) when data for K plots are provided in the input data. In both cases, decomposition can be done for two cases: (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for.
 
 
 ```{r eval=FALSE}
@@ -116,9 +112,9 @@ MFggplot(output, model = "LMM.both", by_group = NULL, caption = "slope")
 ```
 
 
-## Data input format
+## DATA INPUT FORMAT
 
-#### Ecosystem function data
+## Ecosystem function data
 
 
 The FunDivEurope data are used here to demonstrate the use of the four functions; see Ratcliffe et al. (2017a, b) and Scherer-Lorenzen et al. (2023) for the original datasets. There are three datasets provided with the package: raw ecosystem function dataset (`forest_function_data_raw`), normalized function dataset (`forest_function_data_normalized`), and biodiversity dataset (`forest_biodiversity_data`). The first dataset includes the raw values of 26 ecosystem functions collected from 209 plots in six European countries, representing six major European forest types: boreal forest (Finland, 28 plots); hemi-boreal (Poland, 43 plots); temperate deciduous (Germany, 38 plots); mountainous deciduous (Romania, 28 plots); thermophilous deciduous (Italy, 36 plots); and Mediterranean mixed (Spain, 36 plots). Each plot is designated as an ecosystem in assessing BEF relationships. See Table 1 of Ratcliffe et al. (2017a) for a description of the 26 functions, and Ratcliffe et al. (2017a) and Scherer-Lorenzen et al. (2023) for data details of the original datasets. 
@@ -126,7 +122,7 @@ The FunDivEurope data are used here to demonstrate the use of the four functions
 In addition to row name (plot/ecosystem id) and column name (plot information and function names), the data in the file  `forest_function_data_raw` are input as a data.frame with 209 plots (rows) and 32 columns. The first 5 columns show the relevant plot information, followed by 26 raw ecosystem functions (in consecutive columns from 6 to 31). An additional column “country” for each plot is added (as column 32) as a stratification/group variable because function normalization and relevant decomposition analyses will be performed within each country. For each missing value of functions in the original dataset, the mean of the given function within the country was imputed. Thus, the raw ecosystem function dataset provided with the package is slightly different from the original one. 
 
 
-Run the following code for the data `forest_function_data_raw` to view the first ten rows and five columns (columns 1:3, 6 and 7); columns 6 and 7 show respectively the first two raw ecosystem functions (earthworm_biomass and fine_woody_debris) :
+Run the following code for the data `forest_function_data_raw` to view the first ten rows and the first five columns (columns 1:3, 6 and 7); columns 6 and 7 show respectively the first two raw ecosystem functions (earthworm_biomass and fine_woody_debris) :
 
 ```{r  fig.width=10, eval=FALSE}
 data("forest_function_data_raw")
@@ -135,10 +131,10 @@ head(cbind(forest_function_data_raw[1:3], round(forest_function_data_raw[6:7], 3
 
 ```{r  fig.width=10, echo=FALSE}
 data("forest_function_data_raw")
-head(cbind(forest_function_data_raw[1:3], round(forest_function_data_raw[6:7], 3)), 10)
+head(cbind(forest_function_data_raw[1:3], round(forest_function_data_raw[6:7],3)), 10)
 ```
 
-To meaningfully quantify multifunctionality in a ecosystem based on multiple functions, all function values should be first normalized to the range [0, 1]. Proper normalization can be performed by using `function_normalization` provided in the package. In the FunDivEUROPE data, the forests in the six countries represent different ecosystems, all functions were thus normalized within a country, by specifying the argument `by_group = "country"`. Because different transformations are applied to positive and negative functionality, it is required to specify negative functionality in the argument `"negative"`. In the raw function dataset, there are 26 ecosystem functions (in consecutive columns from 6 to 31). Among them, two are negative functionality: `"soil_cn_ff_10"` and `"wue"`, and others are positive functionality. Run the following code to view the first ten rows and five columns (columns 1:3, 6 and 7); columns 6 and 7 show respectively the normalized values of the first two ecosystem functions (earthworm_biomass and fine_woody_debris):
+To meaningfully quantify multifunctionality in a ecosystem based on multiple functions, all function values should be first normalized to the range [0, 1]. Proper normalization can be performed by using `function_normalization` provided in the package. In the FunDivEUROPE data, the forests in the six countries represent different ecosystems, all functions were thus normalized within a country, by specifying the argument `by_group = "country"`. Because different transformations are applied to positive and negative functionality, it is required to specify negative functionality in the argument `"negative"`. In the raw function dataset, there are 26 ecosystem functions (in consecutive columns from 6 to 31). Among them, two are negative functionality: `"soil_cn_ff_10"` and `"wue"`, and others are positive functionality. Run the following code to view the first ten rows and the first five columns (columns 1:3, 6 and 7); columns 6 and 7 show respectively the normalized values of the first two ecosystem functions (earthworm_biomass and fine_woody_debris):
 
 ```{r fig.width=10, eval=FALSE}
 data("forest_function_data_raw")
@@ -157,11 +153,9 @@ head(cbind(normalized_forest_function_data[1:3], round(normalized_forest_functio
 This normalized dataset is exactly the same as the dataset `forest_function_data_normalized` provide with the package.
 
 
-#### Biodiversity data
+## Biodiversity data
 
-The `forest_biodiversity_data` consist of four columns: the "plotID" column includes the name of ecosystems/plots, the "species" column includes species names, the "abundance" column includes the corresponding species abundance (basal area as a proxy of species abundance), and the “country” column includes the corresponding stratifying variable, in addition to row and column names; see Scherer-Lorenzen et al. (2023) for the original data. Because missing values of “basal area” in the original dataset were imputed by the mean of the same species within the country, and basal areas were combined for two species (Betula pendula and Betula pubescens), the dataset provided with the package is slightly different from the original dataset.
-
-Run the following code to view the first ten rows of the biodiversity data:
+The `forest_biodiversity_data` consist of four columns: the "plotID" column includes the name of ecosystems/plots, the "species" column includes species names, the "abundance" column includes the corresponding species abundance (basal area as a proxy of species abundance), and the “country” column includes the corresponding stratifying variable, in addition to row and column names; see Scherer-Lorenzen et al. (2023) for the original data. Because missing values of “basal area” in the original dataset were imputed by the mean of the same species within the country, and basal areas were combined for two species (Betula pendula and Betula pubescens), the dataset provided with the package is slightly different from the original dataset. Run the following code to view the first ten rows of the biodiversity data:
 
 ```{r eval=FALSE}
 data("forest_biodiversity_data")
@@ -173,7 +167,9 @@ data("forest_biodiversity_data")
 head(forest_biodiversity_data,10)
 ```
 
-## Computing multifunctionality in a single ecosystem
+## WITHIN-ECOSYSTEM MULTIFUNCTIONALITY AND BEF RELATIONSHIPS
+
+## Computing multifunctionality within a single ecosystem
 
 Based on normalized function data, `MF1_single()` computes multifunctionality measures of orders q = 0, 1 and 2 for given function weights in a single ecosystem separately for two cases: (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for.
 
@@ -181,122 +177,27 @@ When `species_data = NULL` (i.e., biodiversity data are not provided), `MF1_sing
 
 Run the following code to view the first ten rows of the output:
 
-```{r echo=TRUE}
+```{r eval=FALSE}
 data("forest_function_data_normalized")
 data("forest_biodiversity_data")
 output1 <- MF1_single(func_data = forest_function_data_normalized[,6:31], weight = 1,
-           species_data = forest_biodiversity_data)
+                      species_data = forest_biodiversity_data)
+head(output1, 10)
 ```
 
 ```{r echo=FALSE}
+output1 <- MF1_single(func_data = forest_function_data_normalized[,6:31], weight = 1,
+                      species_data = forest_biodiversity_data)
 output1 %>% mutate(qMF = round(qMF,3),
-                          Species.diversity = round(Species.diversity,3)) %>% head(10)
-
+                   Species.diversity = round(Species.diversity,3)) %>% head(10)
 ```
 
-The above output includes the ID of plot (`plotID`), `Type` (corr_uncorrected and corr_corrected), the diversity order (`Order.q`), the multifunctionality measure of order q (`qMF`) and tree species diversity (`Species.diversity`).
+The above output includes the ID of plot (`plotID`), `Type` (corr_uncorrected and corr_corrected), the diversity order (`Order.q`), the multifunctionality measure of order q (`qMF`) and species diversity (`Species.diversity`).
 
-## Computing alpha, beta and gamma multifunctionality for any pair of plots within a country
-
-`MF2_multiple()` computes alpha, beta and gamma multifuctionality measures of orders q = 0, 1 and 2 for given function weights in multiple ecosystems separately for two cases: (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for. The decomposition of multifunctionality measure of order q can be based on all pairs of plots or all plots separately within each country. The alpha scale refers to individual plots, whereas the gamma scale refers to the two collective plots. 
-
-When `species_data = NULL` (i.e., biodiversity data are not provided), `MF2_multiple` computes alpha, beta, and gamma multifunctionality values for q = 0, 1 and 2 for all pairs of plots within each country. (with default `by_pair = TRUE`) When biodiversity data are specified (`species_data = forest_biodiversity_data`), tree species diversity values for q = 0, 1 and 2 are also computed.
-
-Due to sparse data in Finland (with richness levels of only one or two species in 90% of plots), data from Finland are excluded from following computation. Run the following code to view the first ten rows of the output:
-
-```{r eval=FALSE}
-library(dplyr)
-data("forest_function_data_normalized")
-data("forest_biodiversity_data")
-forest_function_data_normalized <- forest_function_data_normalized %>% filter(country != "FIN")
-forest_biodiversity_data <- forest_biodiversity_data[-(1:48),]
-output2 = MF2_multiple(func_data = forest_function_data_normalized[,6:32],
-                      species_data = forest_biodiversity_data,
-                      weight = 1,
-                      by_group = "country")
-```
-
-```{r include=FALSE}
-data("forest_function_data_normalized")
-data("forest_biodiversity_data")
-forest_function_data_normalized <- forest_function_data_normalized %>% filter(country != "FIN")
-forest_biodiversity_data <- forest_biodiversity_data[-(1:48),]
-Demo_multiple = MF2_multiple(func_data =  forest_function_data_normalized[,6:32],
-                      species_data = forest_biodiversity_data,
-                      weight = 1,
-                      by_group = "country")
-
-output2 <- Demo_multiple %>%
-  mutate(Type=factor(Type,levels = unique(Type)),
-         Scale=factor(Scale,levels = unique(Scale)))
-output2$qMF <- round(output2$qMF,3)
-output2$Species.diversity <- round(output2$Species.diversity,3)
-
-```
-
-
-```{r echo=FALSE}
-head(as.data.frame(output2), 10)
-output2 <- Demo_multiple
-```
-
-
-The above output includes the combinations of two plots (`plotID`), `Country` of the two plots, `Type` (corr_uncorrected or corr_corrected), `Scale` (gamma, alpha or beta), the diversity order (`Order.q`), multifunctionality value of order q (`qMF`) and the corresponding gamma/alpha/beta species diversity (`Species.diversity`).
-
-NOTE: Because the total number of pair plots is huge, it is very time consuming to obtain the numerical output and graphical displays from running the above code. Users can simply select part of the data to quickly view/obtain the output. See later part for a simple example based on only 18 plots from Germany and Italy. 
-
-
-## Computing alpha, beta and gamma multifunctionality for all plots within a country
-
-As the introduction of `MF2_multiple()` described above, this function can also calculate the decomposition of multifunctionality measure of order q based on all plots separately within each country. (with `by_group = "country"` and `by_pair = FALSE`)
-
-Following use the the partial data of `forest_function_data_raw`, which contains the first three plots in each country, to calculate the alpha, beta and gamma multifunctionality for all three plots within a country. 
-
-```{r eval=FALSE}
-data("forest_function_data_raw")
-data("forest_biodiversity_data")
-forest_function_data_raw_3plots <- forest_function_data_raw[c(1:3,29:31,67:69,103:105,
-                                                                    146:148,174:176),]
-forest_function_data_normalized_3plots <- function_normalization(data=forest_function_data_raw_3plots,
-                                                          fun_cols=6:31, 
-                                                          negative=c("soil_cn_ff_10","wue"),
-                                                          by_group="country")
-forest_biodiversity_data_3plots<-forest_biodiversity_data[c(1:6,49:52,141:148,230:232,351:355,411:417),]
-
-output5 = MF2_multiple(func_data = forest_function_data_normalized_3plots[,6:32],
-                       species_data = forest_biodiversity_data_3plots,
-                       weight = 1,
-                       by_group = "country", by_pair = FALSE)
-```
-
-```{r echo=FALSE}
-data("forest_function_data_raw")
-data("forest_biodiversity_data")
-forest_function_data_raw_3plots <- forest_function_data_raw[c(1:3,29:31,67:69,103:105,
-                                                                    146:148,174:176),]
-forest_function_data_normalized_3plots <- function_normalization(data=forest_function_data_raw_3plots,
-                                                          fun_cols=6:31, 
-                                                          negative=c("soil_cn_ff_10","wue"),
-                                                          by_group="country")
-forest_biodiversity_data_3plots <- forest_biodiversity_data[c(1:6,49:52,141:148,230:232,351:355,411:417),]
-
-output5 = MF2_multiple(func_data = forest_function_data_normalized_3plots[,6:32],
-                       species_data = forest_biodiversity_data_3plots,
-                       weight = 1,
-                       by_group = "country", by_pair = FALSE)
-head(as.data.frame(output5), 10)
-```
-
-
-
-## Assessing BEF Relationships by MFggplot()
+## Assessing within-ecosystem BEF relationships by MFggplot()
 
 Function `MFggplot()` provides the graphical BEF relationships based on the output from the function
-`MF1_single` or `MF2_multiple`.
-
-#### Within-plot BEF relationship
-
-For an <code>MF1_single</code> object of given individual function weights, function `MFggplot` plots the BEF relationship between multifunctionality of order q (= 0, 1 and 2) and species diversity of the same order q for two cases: (i) correlations between functions are not corrected for. (ii) correlations between functions are corrected for. The fitted lines for the chosen model are also shown in the figure.
+`MF1_single` or `MF2_multiple`. For an <code>MF1_single</code> object of given individual function weights, function `MFggplot` plots the BEF relationship between multifunctionality of order q (= 0, 1 and 2) and species diversity of the same order q for two cases: (i) correlations between functions are not corrected for. (ii) correlations between functions are corrected for. The fitted lines for the chosen model are also shown in the figure.
 
 Below we demonstrate how to reveal BEF relationships under the most useful linear mixed-effects model (`model = "LMM.both"`). Under the model, for each value of q, the relationship between tree species diversity and multifunctionality is modeled using a linear mixed-effects model with random slopes and random intercepts for each country. To fit a linear mixed-effect model, the stratification/group variable must be specified (e.g., `by_group = "country"` in the following code).  If `by_group = NULL`, one can only fit linear model (`model = "lm"`). Run the following code to reveal the overall fixed-effect slopes (bold red lines) and each country’s relationships (thin lines) estimated from the same linear mixed model. All the fitted results and the associated test of significance for the overall slopes and R-squared were based on the output using the function “lmer” in the R packages “lme4” and “lmerTest”. 
 
@@ -308,22 +209,100 @@ MFggplot(output1, model = "LMM.both", by_group = "country", caption = "slope")
 ```
 
 
+## Using partial data to quickly view/obtain output
+
+To quickly view/obtain the output, Users can simply select part of the entire set of 209 plots as input data. Here we only use the first 18 plots from Germany and the last 18 plots from Italy for illustration. Run the following code to view the first ten rows of the within-plot multifunctionality measures in the output:
+
+```{r eval=FALSE}
+data("forest_function_data_raw")
+data("forest_biodiversity_data")
+GER_ITA_forest_function_raw <- filter(forest_function_data_raw, 
+                                      country=="GER"|country=="ITA")[c(1:18,57:74),]
+GER_ITA_forest_function_normalized <- function_normalization(data = GER_ITA_forest_function_raw,
+                                                             fun_cols = 6:31, 
+                                                             negative = c("soil_cn_ff_10","wue"),
+                                                             by_group = "country")
+GER_ITA_forest_biodiversity <- forest_biodiversity_data[c(49:82,181:229),]
+output2 <- MF1_single(func_data = GER_ITA_forest_function_normalized[,6:31], weight = 1,
+                      species_data = GER_ITA_forest_biodiversity)
+head(output2, 10)
+```
+
+```{r echo=FALSE}
+GER_ITA_forest_function_raw <- filter(forest_function_data_raw, 
+                                      country=="GER"|country=="ITA")[c(1:18,57:74),]
+GER_ITA_forest_function_normalized <- function_normalization(data = GER_ITA_forest_function_raw,
+                                                             fun_cols = 6:31, 
+                                                             negative = c("soil_cn_ff_10","wue"),
+                                                             by_group = "country")
+GER_ITA_forest_biodiversity <- forest_biodiversity_data[c(49:82,181:229),]
+output2 <- MF1_single(func_data = GER_ITA_forest_function_normalized[,6:31], weight = 1,
+                      species_data = GER_ITA_forest_biodiversity)
+output2 %>% mutate(qMF = round(qMF,3),
+                   Species.diversity = round(Species.diversity,3)) %>% head(10)
+```
+
+Users then can apply the MFggplot() to view the local within-plot BEF relationships. The graphic output is omitted.
 
 
-#### BEF relationships at gamma, alpha and beta scales
+## MULTIFUNCTIONALITY DECOMPOSITION FOR ALL PAIRS OF PLOTS
 
-For an <code>MF2_multiple</code> object of given individual function weights, function `MFggplot` plots the BEF relationship between alpha/beta/gamma multifunctionality by pairs of plots or all plots of order q (= 0, 1 and 2) and the corresponding alpha/beta/gamma species diversity of the same order q for two cases: (i) correlations between functions are not corrected for. (ii) correlations between functions are corrected. The fitted lines for the chosen model are also shown in the figure. 
+## Computing alpha, beta and gamma multifunctionality for all pairs of plots within a country
+
+`MF2_multiple()` computes alpha, beta and gamma multifuctionality measures of orders q = 0, 1 and 2 for multiple ecosystems separately for two cases: (i) correlations between functions are not corrected for, and (ii) correlations between functions are corrected for. If `by_pair = TRUE` (by default), this function computes alpha, beta and gamma multifuctionality measures of orders q = 0, 1 and 2 for given function weights for all pairs of ecosystems in the input data; if `by_pair = FALSE`, multifunctionality decomposition (alpha/beta/gamma) will be performed for K plots (K can be greater than two) when data for K plots are provided in the input data. When biodiversity data are provided (`species_data = forest_biodiversity_data`), species diversity values for q = 0, 1 and 2 are also computed.
+
+Due to sparse data in Finland (with richness levels of only one or two species in 90% of plots), data from Finland are excluded from following computation. Run the following code to view the first ten rows of the output:
+
+```{r eval=FALSE}
+library(dplyr)
+data("forest_function_data_normalized")
+data("forest_biodiversity_data")
+forest_function_data_normalized <- forest_function_data_normalized %>% filter(country != "FIN")
+forest_biodiversity_data <- forest_biodiversity_data[-(1:48),]
+output3 = MF2_multiple(func_data = forest_function_data_normalized[,6:32],
+                       species_data = forest_biodiversity_data,
+                       weight = 1,
+                       by_group = "country")
+head(output3, 10)
+```
+
+```{r include=FALSE}
+data("forest_function_data_normalized")
+data("forest_biodiversity_data")
+forest_function_data_normalized <- forest_function_data_normalized %>% filter(country != "FIN")
+forest_biodiversity_data <- forest_biodiversity_data[-(1:48),]
+Demo_multiple = MF2_multiple(func_data =  forest_function_data_normalized[,6:32],
+                             species_data = forest_biodiversity_data,
+                             weight = 1,
+                             by_group = "country")
+
+output3 <- Demo_multiple %>%
+  mutate(Type=factor(Type,levels = unique(Type)),
+         Scale=factor(Scale,levels = unique(Scale)))
+output3$qMF <- round(output3$qMF,3)
+output3$Species.diversity <- round(output3$Species.diversity,3)
+
+```
 
 
-By default, the BEF relationship for each scale is modeled using a linear mixed model with random slopes and random intercepts for each country. When multifunctionality in the output of `MF2_multiple` is calculated by all plots, not by pairs (`by_pair = FALSE`), only the linear model can be fitted. 
+```{r echo=FALSE}
+head(as.data.frame(output3), 10)
+output3 <- Demo_multiple
+```
 
-### Multifunctionality by pairs of plots
 
-Run the following code to obtain the BEF graphical relationships when correlations are not corrected for. (Data from Finland are not considered in the plots, as explained earlier. See the package manual for a simple example where the code for plotting BEF relationships based on 18 plots from Germany and Italy is available.)
+The above output includes the names of the paired plots (`plotID`), `Country` of the two plots, the diversity order (`Order.q`), `Type` (corr_uncorrected or corr_corrected), `Scale` (gamma, alpha or beta), multifunctionality value of order q (`qMF`) and the corresponding gamma/alpha/beta species diversity (`Species.diversity`).
+
+
+## Assessing BEF relationships at gamma, alpha and beta scales 
+
+For an <code>MF2_multiple</code> object of given individual function weights, function `MFggplot` plots the BEF relationship between alpha/beta/gamma multifunctionality by pairs of plots or all plots of order q (= 0, 1 and 2) and the corresponding alpha/beta/gamma species diversity of the same order q for two cases: (i) correlations between functions are not corrected for. (ii) correlations between functions are corrected. The fitted lines for the chosen model are also shown in the figure. By default, the BEF relationship for each scale is modeled using a linear mixed model with random slopes and random intercepts for each country. 
+
+Run the following code to obtain the BEF graphical relationships when correlations are not corrected for. (Data from Finland are not considered in the plots, as explained earlier. See later part for a simple example based on only 18 plots from Germany and Italy.)
 
 
 ```{r}
-figure_LMM <- MFggplot(output2, model = "LMM.both", by_group = "country", caption = "slope")
+figure_LMM <- MFggplot(output3, model = "LMM.both", by_group = "country", caption = "slope")
 ```
 
 ```{r, fig.align='center', fig.height=10, fig.width=6.5}
@@ -338,57 +317,10 @@ figure_LMM$corr_corrected$ALL
 ```
 
 
-NOTE: Because the total number of pair plots is huge, it is very time consuming to obtain the BEF graphical relationships from running the above code for alpha/beta/gamma scales. Users can use partial data to quickly view the graphical results; see below for an example. 
+NOTE: Because the total number of pair plots is huge, it is very time consuming to obtain the BEF graphical relationships from running the above code for alpha/beta/gamma scales. Users can use partial data to quickly view/obtain the graphical results; see below for an example. 
 
 
-### Multifunctionality by all plots
-
-Run the following code to obtain the BEF graphical relationships when correlations are not corrected for. (Only use the partial data of `forest_function_data_raw`, that contains only the first three plots in each country.)
-
-
-```{r}
-figure_all_plots <- MFggplot(output5, model = "lm", caption = "slope")  
-```
-
-```{r, fig.align='center', fig.height=10, fig.width=6.5}
-figure_all_plots$corr_uncorrected$ALL
-```
-
-
-The BEF graphical relationships when correlations are corrected for are shown below. 
-
-```{r, fig.align='center', fig.height=10, fig.width=6.5}
-figure_all_plots$corr_corrected$ALL
-```
-
-
-
-## Computing multifunctionality in a single ecosystem for partial data
-
-
-Here we only use the first 18 plots from Germany and the last 18 plots from Italy for illustration. Run the following code to view the first ten rows of the output:
-
-```{r echo=TRUE}
-data("forest_function_data_raw")
-data("forest_biodiversity_data")
-GER_ITA_forest_function_raw <- filter(forest_function_data_raw, 
-                                      country=="GER"|country=="ITA")[c(1:18,57:74),]
-GER_ITA_forest_function_normalized <- function_normalization(data = GER_ITA_forest_function_raw,
-                                                             fun_cols = 6:31, 
-                                                             negative = c("soil_cn_ff_10","wue"),
-                                                             by_group = "country")
-GER_ITA_forest_biodiversity <- forest_biodiversity_data[c(49:82,181:229),]
-output3 <- MF1_single(func_data = GER_ITA_forest_function_normalized[,6:31], weight = 1,
-                      species_data = GER_ITA_forest_biodiversity)
-```
-
-```{r echo=FALSE}
-output3 %>% mutate(qMF = round(qMF,3),
-                          Species.diversity = round(Species.diversity,3)) %>% head(10)
-
-```
-
-## Computing alpha, beta and gamma multifunctionality for partial data
+## Using partial data to quickly view/obtain output
 
 Here we only use the first 18 plots from Germany and the last 18 plots from Italy for illustration. Run the following code to view the first ten rows of the output:
 
@@ -406,6 +338,7 @@ output4 <- MF2_multiple(func_data = GER_ITA_forest_function_normalized[,6:32],
                         species_data = GER_ITA_forest_biodiversity,
                         weight=1,
                         by_group = "country")
+head(output4, 10)
 ```
 
 
@@ -440,19 +373,7 @@ head(as.data.frame(output4), 10)
 output4 <- Demo_multiple2
 ```
 
-## Assessing BEF Relationships by MFggplot()
 
-#### Within-plot BEF relationship for partial data
-
-Run the following code to obtain the within-plot BEF graphical relationships based on 18 plots from Germany and Italy when correlations are not corrected for and corrected for.
-
-```{r}
-output3 <- data.frame(output3, country=rep(GER_ITA_forest_function_normalized$country, each = 6))
-MFggplot(output3, model = "LMM.both", by_group="country", caption = "slope")
-```
-
-
-#### BEF relationships at gamma, alpha and beta scales for partial data
 
 Run the following code to obtain the BEF graphical relationships in 18 plots from Germany and Italy when correlations are not corrected for.
 
@@ -471,7 +392,79 @@ The BEF graphical relationships based on 18 plots from Germany and Italy when co
 figure_LMM_GER_ITA$corr_corrected$ALL
 ```
 
-## References
+
+
+## MULTIFUNCTIONALITY DECOMPOSITION FOR K PLOTS (K>2)
+
+
+## Computing alpha, beta and gamma multifunctionality for 3 plots in each country
+
+Function `MF2_multiple()` can be applied to perform multifunctionality decomposition based on a general number of ecosystems/plots (`by_pair = FALSE`). For illustration, we use the first three plots in each of the six countries as the second demo data to calculate alpha/beta/gamma multifunctionality based on three plots in each country. Run the following code to view the first ten rows of the output.
+
+```{r eval=FALSE}
+data("forest_function_data_raw")
+data("forest_biodiversity_data")
+forest_function_data_raw_3plots <- forest_function_data_raw[c(1:3,29:31,67:69,103:105,
+                                                              146:148,174:176),]
+forest_function_data_normalized_3plots <- function_normalization(data=forest_function_data_raw_3plots,
+                                                                 fun_cols=6:31, 
+                                                                 negative=c("soil_cn_ff_10","wue"),
+                                                                 by_group="country")
+forest_biodiversity_data_3plots<-forest_biodiversity_data[c(1:6,49:52,141:148,
+                                                            230:232,351:355,411:417),]
+
+output5 = MF2_multiple(func_data = forest_function_data_normalized_3plots[,6:32],
+                       species_data = forest_biodiversity_data_3plots,
+                       weight = 1,
+                       by_group = "country", by_pair = FALSE)
+head(output5, 10)
+```
+
+```{r echo=FALSE}
+data("forest_function_data_raw")
+data("forest_biodiversity_data")
+forest_function_data_raw_3plots <- forest_function_data_raw[c(1:3,29:31,67:69,103:105,
+                                                              146:148,174:176),]
+forest_function_data_normalized_3plots <- function_normalization(data=forest_function_data_raw_3plots,
+                                                                 fun_cols=6:31, 
+                                                                 negative=c("soil_cn_ff_10","wue"),
+                                                                 by_group="country")
+forest_biodiversity_data_3plots <- forest_biodiversity_data[c(1:6,49:52,141:148,230:232,351:355,411:417),]
+
+output5 = MF2_multiple(func_data = forest_function_data_normalized_3plots[,6:32],
+                       species_data = forest_biodiversity_data_3plots,
+                       weight = 1,
+                       by_group = "country", by_pair = FALSE)
+head(as.data.frame(output5), 10)
+```
+
+
+
+## Assessing BEF relationships at alpha, beta and gamma scales 
+
+When multifunctionality decomposition is performed for K plots (K>2), only linear model can be fitted to the BEF relationships because alpha/beta/gamma data points are not sufficient to fit linear mixed models. Run the following code to obtain the BEF graphical relationships when correlations are not corrected for. 
+
+
+
+```{r}
+figure_all_plots <- MFggplot(output5, model = "lm", caption = "slope")  
+```
+
+```{r, fig.align='center', fig.height=10, fig.width=6.5}
+figure_all_plots$corr_uncorrected$ALL
+```
+
+
+The BEF graphical relationships when correlations are corrected for are shown below. 
+
+```{r, fig.align='center', fig.height=10, fig.width=6.5}
+figure_all_plots$corr_corrected$ALL
+```
+
+
+
+
+## REFERENCES
 
 
 <li> Chao, A., Chiu, C. H., Hu, K. H., van der Plas, F., Cadotte, M. W., Mitesser, O., et al. (2024). Hill-Chao numbers in multifunctionality allows decomposing gamma multifunctionality into alpha and beta components. <i>Ecology Letters</i>. 27, e14336. Available from: https://doi.org/10.1111/ele.14336 </li>
