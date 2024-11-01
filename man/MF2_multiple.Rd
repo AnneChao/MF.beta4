@@ -61,8 +61,6 @@ MF2_multiple(func_data = forest_function_data_normalized[,6:32],
              weight = 1,
              by_group = "country")
              
-}
-
 
 ### Use partial data to quickly obtain output 
 ### (Take the first 18 plots in Germany and the last 18 plots in Italy)
@@ -83,6 +81,7 @@ MF2_multiple(func_data = GER_ITA_forest_function_normalized[,6:32],
              weight = 1,
              by_group = "country")
 
+}
 
 ### Use partial data to decompose multifunctionality based on 3 plots in each country, not by pairs 
 ### (Take the first 3 plots in each country)              

@@ -199,8 +199,6 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #'              weight = 1,
 #'              by_group = "country")
 #'              
-#' }
-#' 
 #' 
 #' ### Use partial data to quickly obtain output 
 #' ### (Take the first 18 plots in Germany and the last 18 plots in Italy)
@@ -221,6 +219,7 @@ MF1_single <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2))
 #'              weight = 1,
 #'              by_group = "country")
 #' 
+#' }
 #' 
 #' ### Use partial data to decompose multifunctionality based on 3 plots in each country, not by pairs 
 #' ### (Take the first 3 plots in each country)              
