@@ -13,18 +13,10 @@ An Introduction to MF.beta4 via Examples
 Statistics, National Tsing Hua University, Hsin-Chu, Taiwan 30043</i>
 </h5>
 
-<br> <font color=red> The Latest Update in Nov. 1, 2024: In earlier
-versions, multifunctionality decomposition (alpha, beta and gamma) was
-performed only for pairs of plots/ecosystems. In the updated version, we
-have added a logical argument `"by_pair"` in the main function
-`"MF2_multiple"` to specify whether multifunctionality decomposition
-will be performed for all pairs of ecosystems or not. If
-`"by_pair = TRUE"`, alpha/beta/gamma multifunctionality will be computed
-for all pairs of ecosystems/plots in the input data; if
-`"by_pair =  FALSE"`, alpha/beta/gamma multifunctionality will be
-computed for K plots (i.e., K can be greater than two) when data for K
-plots are provided in the input data. Default is
-`"by_pair = TRUE"`.</font> <br>
+“by_pair” “MF2_multiple” “by_pair = TRUE”“by_pair = FALSE”“by_pair =
+TRUE”.
+
+  
 
 <br> <font color=#FF6600> </font>
 
