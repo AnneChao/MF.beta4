@@ -23,8 +23,8 @@ will be performed for all pairs of ecosystems or not. If
 for all pairs of ecosystems/plots in the input data; if
 `"by_pair =  FALSE"`, alpha/beta/gamma multifunctionality will be
 computed for K plots (i.e., K can be greater than two) when data for K
-plots are provided in the input data. Default is `"by_pair = TRUE"`.
-<br>
+plots are provided in the input data. Default is
+`"by_pair = TRUE"`.</font> <br>
 
 <br> <font color=#FF6600> </font>
 
