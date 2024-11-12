@@ -11,4 +11,4 @@
 - Modify existence detection.
 
 # MF.beta4 1.1.0
-- Add "by_group" setting for beta decomposition in the function "MF2_multiple" to compute alpha/beta/gamma multifunctionality (i.e, more than two ecosystems).
+- Add "by_pair" setting for beta decomposition in the function "MF2_multiple" to compute pairwise alpha/beta/gamma multifunctionality (i.e, more than two ecosystems).
