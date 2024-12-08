@@ -12,3 +12,6 @@
 
 # MF.beta4 1.1.0
 - Add "by_pair" setting for beta decomposition in the function "MF2_multiple" to compute pairwise alpha/beta/gamma multifunctionality (i.e, more than two ecosystems).
+
+# MF.beta4 1.1.1
+- Update description in vignette and package manual.

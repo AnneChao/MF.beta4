@@ -1,7 +1,7 @@
 Package: MF.beta4
 Type: Package
 Title: Measuring Ecosystem Multi-Functionality and Its Decomposition
-Version: 1.1.0
+Version: 1.1.1
 Author: Anne Chao [aut, cre], Chun-Yu Liu [ctb], KaiHsiang Hu [ctb]
 Maintainer: Anne Chao <chao@stat.nthu.edu.tw>
 Authors@R: 
