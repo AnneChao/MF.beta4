@@ -1,7 +1,7 @@
 # MF.beta4 (R package)
 
 <h5 align="right">
-Latest version 1.1.0 (Nov. 1, 2024)
+Latest version 1.1.1 (Dec. 8, 2024)
 </h5>
 <font color="394CAE">
 <h3 color="394CAE" style="font-weight: bold">
