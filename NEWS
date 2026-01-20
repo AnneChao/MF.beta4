@@ -17,5 +17,5 @@
 - Update description in vignette and package manual.
 
 # MF.beta4 1.1.2
-- Modify error when species_data = NULL in the function MF2_multiple.
+- Modify error when 'species_data = NULL' in the function MF2_multiple.
 
