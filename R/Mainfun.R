@@ -544,7 +544,7 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
                      corr_corrected_Beta = (L_b+R_b)/2) %>%
               dplyr::select(c(corr_corrected_Gamma:corr_corrected_Beta))
             
-            result <- cbind(result,result_tau)
+            output <- cbind(result,result_tau)
           }
           
           if(!is.null(species_data)){
@@ -572,7 +572,7 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
             s_a <- div_out$alpha
             s_b <- div_out$beta
             
-            output <- cbind(result,data.frame("Species_Gamma"=s_r,
+            output <- cbind(output,data.frame("Species_Gamma"=s_r,
                                               "Species_Alpha"=s_a,
                                               "Species_Beta"=s_b))
           }
@@ -580,7 +580,7 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
         }
         else if(length(by_group)!=1) stop("Error: The number of the group variable should not be more than 1.")
         else if(!(by_group %in% colnames(func_data))) stop("Error: The group variable is not included in the given function data.")
-        else if(!(by_group %in% colnames(species_data))) stop("Error: The group variable is not included in the given species data.")
+        else if(!(by_group %in% colnames(species_data)) & !is.null(species_data)) stop("Error: The group variable is not included in the given species data.")
         else{
           func_data <- ungroup(func_data)
           output <- lapply(unique(unlist(func_data %>% dplyr::select(by_group)) %>% as.character()),function(group){
@@ -669,7 +669,8 @@ MF2_multiple <- function(func_data, species_data = NULL, weight = 1, q = c(0,1,2
               output <- cbind(result,data.frame("Species_Gamma"=s_r,
                                                 "Species_Alpha"=s_a,
                                                 "Species_Beta"=s_b))
-            }
+            } else output <- result
+            
             return(output)
           }) %>% do.call(rbind,.)
         }
